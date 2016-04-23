@@ -11,7 +11,7 @@ public class SnakeBoard {
 	
 	SnakeBoard(){
 		width=20;
-		height=20;
+		height=30;
 		newBoard();
 	}
 	

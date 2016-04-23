@@ -63,7 +63,7 @@ public class AsciiCanvas {
 		//test to make sure inbounds to optimize
 		for(int i=x;i<x+w && i<width;i++){
 			set(i,y-1,'_');
-			set(i,y+h,'¯');
+			set(i,y+h,'â€¾');
 		}
 		for(int i=y;i<y+h && i<height;i++){
 			set(x-1,i,'|');
@@ -123,7 +123,7 @@ public class AsciiCanvas {
 	
 	public void drawHLine(int x,int y, int l,boolean down){
 		if(down)drawHLine(x,y,l);
-		else drawHLine(x,y,l,'¯');
+		else drawHLine(x,y,l,'â€¾');
 	}
 	
 	public void drawHLine(int x,int y, int l,char c){
