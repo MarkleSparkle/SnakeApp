@@ -1,5 +1,7 @@
 package com.brainesgames.snake;
 
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +17,8 @@ import android.util.Log;
 
 import com.brainesgames.ascii.AsciiCanvas;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,27 +33,36 @@ public class GameActivity extends AppCompatActivity {
     TimerTask gameLoop;
     TextView graphicsField;
     float startX, startY;
+    SharedPreferences sp;
+    SharedPreferences.Editor spEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        sp=getApplication().getSharedPreferences("highscores", MODE_PRIVATE);
+        spEdit=sp.edit();
 
         board=new SnakeBoard();
         sc=new SnakeCanvas(board);
         canvas=new AsciiCanvas(sc.canvas.getWidth(),sc.canvas.getHeight()+2);
         score=1;
-        highscore=1;
+        highscore=sp.getInt("high",1);
         direction=0;
         gameOn=false;
 
+        InputStream is= getResources().openRawResource(R.raw.taptostart);
+        AsciiCanvas tapToStart=AsciiCanvas.load(is);
         sc.draw();
         canvas.drawHLine(0, 0, canvas.getWidth(), ' ');
-        canvas.copy(sc.canvas, 0, 2, true);
-        canvas.drawString(0, 0, "SCORE: " + score + "   HIGHSCORE: " + highscore);
-        canvas.drawString(0, 1, "TAP TO START");
+        canvas.drawString(0, 0, "HIGHSCORE: " + highscore);
+        if(tapToStart==null) {
+            canvas.drawString(canvas.getWidth() / 2 - 6, canvas.getHeight() / 2, "TAP TO START");
+        }
+        else{
+            canvas.copy(tapToStart,(canvas.getWidth()-tapToStart.getWidth())/2,(canvas.getHeight()-tapToStart.getHeight())/2,true);
+        }
 
         graphicsField=(TextView)findViewById(R.id.graphicsField);
         graphicsField.setText(canvas.toString());
@@ -63,9 +76,13 @@ public class GameActivity extends AppCompatActivity {
         Log.d("Game activity","sh"+screenHeight);
 
         //*****may need to change because height of a character is larger than width
-        int limitSize=Math.min(screenWidth / canvas.getWidth(), screenHeight/canvas.getHeight());
-        Log.d("Game activity", "ls" + limitSize);
-        graphicsField.setTextSize(TypedValue.COMPLEX_UNIT_PX, limitSize * 1.5f);
+        float limitSize=Math.min((float)screenWidth / canvas.getWidth(), (float)screenHeight/canvas.getHeight()*0.49f);
+
+        Log.d("GameActivity","lswid: "+(float)screenWidth / canvas.getWidth());
+        Log.d("GameActivity","lshei: "+(float)screenHeight/canvas.getHeight()*0.49f);
+
+        Log.d("GameActivity", "ls" + limitSize);
+        graphicsField.setTextSize(TypedValue.COMPLEX_UNIT_PX, limitSize * 1.67f);
 
         graphicsField.setOnTouchListener(new View.OnTouchListener() {
 
@@ -181,6 +198,10 @@ public class GameActivity extends AppCompatActivity {
 
     void setScore(int s){
         score=s;
-        if(score>highscore)highscore=score;
+        if(score>highscore){
+            highscore=score;
+            spEdit.putInt("high",highscore);
+            spEdit.commit();
+        }
     }
 }

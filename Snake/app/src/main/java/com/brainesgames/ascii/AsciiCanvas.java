@@ -172,6 +172,8 @@ public class AsciiCanvas {
 		} catch (FileNotFoundException e) {
 			System.out.println("404 File not Found: "+filename);
 			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -181,6 +183,17 @@ public class AsciiCanvas {
 			return load(new BufferedReader(new FileReader(file)));
 		} catch (FileNotFoundException e) {
 			System.out.println("404 File not Found: "+file);
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static AsciiCanvas load(InputStream is){
+		try {
+			return load(new BufferedReader(new InputStreamReader(is)));
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return null;
