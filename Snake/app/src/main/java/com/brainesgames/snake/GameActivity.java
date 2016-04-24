@@ -87,7 +87,7 @@ public class GameActivity extends AppCompatActivity {
         graphicsField.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public boolean onTouch(View v, MotionEvent event) {//listens for the direction of the users swipe in game
                 //Log.d("GameActivity","Touch event received");
                 //Log.d("GameActivity","action: "+event.getAction());
                 switch (event.getAction()) {
@@ -140,7 +140,7 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    void startGame(){
+    void startGame(){//called after START button is pressed on menu
         //create new game
         newGame();
         timer =new Timer();

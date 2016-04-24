@@ -13,7 +13,6 @@
     tools:showIn="@layout/activity_main"
     android:background="#333333">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,14 +31,30 @@
         android:layout_height="wrap_content"
         android:text="START"
         android:id="@+id/button"
-        android:layout_marginBottom="114dp"
         android:textSize="@dimen/button_size"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:typeface="monospace"
         android:textStyle="bold"
         android:textColor="#00dd00"
         android:background="#666666"
         android:onClick="startGame"
-        android:padding="20dp" />
+        android:padding="20dp"
+        android:layout_marginBottom="45dp"
+        android:layout_above="@+id/button2"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OPTIONS"
+        android:id="@+id/button2"
+        android:layout_marginBottom="54dp"
+        android:textSize="30sp"
+        android:textColor="#00cc00"
+        android:padding="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#999999"
+        android:onClick="optionsMenu" />
 </RelativeLayout>
