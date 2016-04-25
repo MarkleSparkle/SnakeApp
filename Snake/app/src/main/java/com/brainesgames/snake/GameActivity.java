@@ -1,32 +1,39 @@
 package com.brainesgames.snake;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import android.util.Log;
-
 import com.brainesgames.ascii.AsciiCanvas;
-
-import java.io.BufferedReader;
 import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
+    static final long INTERVAL_SLOW=150;
+    static final long INTERVAL_NORMAL=125;
+    static final long INTERVAL_FAST=100;
+    static final long INTERVAL_EXTREME=75;
+
+    static final int MODE_SLOW=0;
+    static final int MODE_NORMAL=1;
+    static final int MODE_FAST=2;
+    static final int MODE_EXTREME=3;
+    static final int MODE_DYNAMIC=4;
+    static final int MODE_RANDOM=5;
+
     SnakeBoard board;
     SnakeCanvas sc;
     AsciiCanvas canvas;
     int score,highscore;
+    int gameMode;
+    long interval;
     int direction;
     boolean gameOn;
     boolean gamePaused;
@@ -34,22 +41,26 @@ public class GameActivity extends AppCompatActivity {
     TimerTask gameLoop;
     TextView graphicsField;
     float startX, startY;
-    SharedPreferences sp;
-    SharedPreferences.Editor spEdit;
+    SharedPreferences highscorePrefs,optionPrefs;
+    SharedPreferences.Editor highscoreEdit,optionEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        sp=getApplication().getSharedPreferences("highscores", MODE_PRIVATE);
-        spEdit=sp.edit();
+        highscorePrefs=getApplication().getSharedPreferences("highscores", MODE_PRIVATE);
+        highscoreEdit=highscorePrefs.edit();
+        optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
+        optionEdit=optionPrefs.edit();
+
+        initMode();
 
         board=new SnakeBoard();
         sc=new SnakeCanvas(board);
         canvas=new AsciiCanvas(sc.canvas.getWidth(),sc.canvas.getHeight()+2);
         score=1;
-        highscore=sp.getInt("high",1);
+        highscore=highscorePrefs.getInt("high"+modeStr(),1);
         direction=0;
         startX=startY=0;
         gameOn=false;
@@ -111,6 +122,7 @@ public class GameActivity extends AppCompatActivity {
 
                         if(dx*dx+dy*dy<50){//if there's a tap withing a 5x5 pixel area, a pause is registered
                             if (!gameOn) {//starts game on a tap
+                                initMode();
                                 startGame();
                             }
                             else if(!gamePaused){
@@ -123,6 +135,7 @@ public class GameActivity extends AppCompatActivity {
                                 gamePaused=false;
                                 newTimer();
                             }
+
                         }
                         //Log.d("GameActivity","dx: "+dx);
                         //Log.d("GameActivity","dx: "+dx);
@@ -160,15 +173,14 @@ public class GameActivity extends AppCompatActivity {
         newTimer();
     }
 
-    void newTimer(){
-        timer =new Timer();
-        //create new timer
-        gameLoop=new TimerTask(){
+    void nextLoop(){
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        if (gameOn){
+                        if (gameOn) {
+                            int sizeBefore = board.snake.size();
                             board.move(direction);
                             setScore(board.snake.size());
                             if (board.done) {
@@ -185,6 +197,21 @@ public class GameActivity extends AppCompatActivity {
                                 canvas.drawHLine(0, 1, canvas.getWidth(), ' ');
                                 canvas.drawString(0, 0, "SCORE: " + score + "   HIGHSCORE: " + highscore);
                                 canvas.copy(sc.canvas, 0, 2, true);
+
+
+                                //snake has just eaten an apple
+                                if (board.snake.size() > sizeBefore) {
+                                    if (gameMode == MODE_RANDOM) {
+                                        //set and apply new interval
+                                        interval = SnakeBoard.r.nextInt(125) + 50;
+                                    } else if (gameMode == MODE_DYNAMIC) {
+                                        if (board.snake.size() % 5 == 0 && interval > 30) {
+                                            interval -= 10;
+                                        }
+                                    }
+                                }
+
+                                nextLoop();
                             }
                             graphicsField.setText(canvas.toString());
                         }
@@ -192,9 +219,14 @@ public class GameActivity extends AppCompatActivity {
                 });
             }
 
-        };
-        //start the timer
-        timer.scheduleAtFixedRate(gameLoop,125,125);
+        }, interval);
+    }
+
+    void newTimer(){
+        //new timer
+        timer =new Timer();
+        //start the loop
+        nextLoop();
     }
 
     //end the timer at end of game
@@ -219,8 +251,66 @@ public class GameActivity extends AppCompatActivity {
         score=s;
         if(score>highscore){
             highscore=score;
-            spEdit.putInt("high",highscore);
-            spEdit.commit();
+            highscoreEdit.putInt("high"+modeStr(),highscore);
+            highscoreEdit.commit();
+        }
+    }
+
+    static String modeStr(int mode){
+        switch (mode){
+            case MODE_SLOW:
+                return "s";
+            case MODE_NORMAL:
+                return "n";
+            case MODE_FAST:
+                return "f";
+            case MODE_EXTREME:
+                return "x";
+            case MODE_DYNAMIC:
+                return "d";
+            case MODE_RANDOM:
+                return "r";
+            default:
+                return "n";
+        }
+    }
+
+    String modeStr(){
+        return modeStr(gameMode);
+    }
+
+    //initializes mode and interval from optionPrefs
+    void initMode(){
+        //find mode from optionPrefs
+        String speedString=optionPrefs.getString("speed","n");
+        switch(speedString.charAt(0)){
+            case 's':
+                gameMode=MODE_SLOW;
+                interval=INTERVAL_SLOW;
+                break;
+            case 'n':
+                gameMode=MODE_NORMAL;
+                interval=INTERVAL_NORMAL;
+                break;
+            case 'f':
+                gameMode=MODE_FAST;
+                interval=INTERVAL_FAST;
+                break;
+            case 'x':
+                gameMode=MODE_EXTREME;
+                interval=INTERVAL_EXTREME;
+                break;
+            case 'd':
+                gameMode=MODE_DYNAMIC;
+                interval=INTERVAL_NORMAL;
+                break;
+            case 'r':
+                gameMode=MODE_RANDOM;
+                interval=INTERVAL_NORMAL;
+                break;
+            default:
+                gameMode=MODE_NORMAL;
+                interval=INTERVAL_NORMAL;
         }
     }
 }

@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Options"
-        android:id="@+id/textView"
+        android:id="@+id/optionsTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/title_size"
@@ -26,19 +26,77 @@
         android:typeface="serif"
         android:textColor="#00aa00" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Blue"
-        android:id="@+id/checkBox"
-        android:checked="false"
-        android:textSize="50sp"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="48dp"
-        android:textColor="#3333ff"
-        android:clickable="true"
-        android:contextClickable="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/optionsTitle"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Speed"
+            android:id="@+id/speedLabel"
+            android:layout_below="@+id/optionsTitle"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textColor="#00aa00"
+            android:paddingLeft="10dp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/speedGroup"
+            android:paddingLeft="10dp">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Slow"
+                android:id="@+id/slowButton"
+                android:textColor="#00aa00" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Normal"
+                android:id="@+id/normalButton"
+                android:textColor="#00aa00" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fast"
+                android:id="@+id/fastButton"
+                android:textColor="#00aa00" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Extreme"
+                android:id="@+id/extremeButton"
+                android:textColor="#00aa00" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dynamic (Speed increases with every five apples)"
+                android:id="@+id/dynamicButton"
+                android:textColor="#00aa00" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Random (Speed changes randomly with every apple)"
+                android:id="@+id/randomButton"
+                android:textColor="#00aa00" />
+
+        </RadioGroup>
+
+    </LinearLayout>
 
 </RelativeLayout>
