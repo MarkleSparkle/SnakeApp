@@ -29,6 +29,7 @@ public class GameActivity extends AppCompatActivity {
     int score,highscore;
     int direction;
     boolean gameOn;
+    boolean gamePaused;
     Timer timer;
     TimerTask gameLoop;
     TextView graphicsField;
@@ -50,7 +51,9 @@ public class GameActivity extends AppCompatActivity {
         score=1;
         highscore=sp.getInt("high",1);
         direction=0;
+        startX=startY=0;
         gameOn=false;
+        gamePaused=false;
 
         InputStream is= getResources().openRawResource(R.raw.taptostart);
         AsciiCanvas tapToStart=AsciiCanvas.load(is);
@@ -93,13 +96,11 @@ public class GameActivity extends AppCompatActivity {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         //Log.d("GameActivity","ACTION_DOWN");
-                        if (!gameOn) {
-                            startGame();
-                        }
                         startX=event.getX();
                         startY=event.getY();
                         break;
                     case MotionEvent.ACTION_UP:
+
                         //Log.d("GameActivity","ACTION_UP");
                         int directionBefore=direction;
 
@@ -108,12 +109,24 @@ public class GameActivity extends AppCompatActivity {
                         float dx=endX-startX;
                         float dy=endY-startY;
 
-                        if(dx*dx+dy*dy<25){//if there's a tap withing a 5x5 pixel area, a pause is registered
-
+                        if(dx*dx+dy*dy<50){//if there's a tap withing a 5x5 pixel area, a pause is registered
+                            if (!gameOn) {//starts game on a tap
+                                startGame();
+                            }
+                            else if(!gamePaused){
+                                endTimer();
+                                gamePaused=true;
+                                canvas.drawString(0,1,"PAUSED. TAP TO UNPAUSE");
+                                graphicsField.setText(canvas.toString());
+                            }
+                            else{
+                                gamePaused=false;
+                                newTimer();
+                            }
                         }
                         //Log.d("GameActivity","dx: "+dx);
                         //Log.d("GameActivity","dx: "+dx);
-                        else {
+                        else {//otherwise a swipe is registered and continues the game
                             if (Math.abs(dy) > Math.abs(dx)) {
                                 if (dy >= 0) {
                                     direction = 2;
@@ -144,6 +157,10 @@ public class GameActivity extends AppCompatActivity {
     void startGame(){//called after START button is pressed on menu
         //create new game
         newGame();
+        newTimer();
+    }
+
+    void newTimer(){
         timer =new Timer();
         //create new timer
         gameLoop=new TimerTask(){
@@ -165,6 +182,7 @@ public class GameActivity extends AppCompatActivity {
                             } else {
                                 sc.draw();
                                 canvas.drawHLine(0, 0, canvas.getWidth(), ' ');
+                                canvas.drawHLine(0, 1, canvas.getWidth(), ' ');
                                 canvas.drawString(0, 0, "SCORE: " + score + "   HIGHSCORE: " + highscore);
                                 canvas.copy(sc.canvas, 0, 2, true);
                             }
