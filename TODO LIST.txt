@@ -1,0 +1,24 @@
+TODO LIST:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+	1. More Game Modes{
+		1. Obstacles
+		2. Time Based (60 seconds to get as many apples as possible)
+		3.
+	}
+	2. Achievements / Colours {
+		1. Find Colours
+		2. Deturmine Achievement Milestones
+		3. Deturmine Colours for each achievement (or randomly selected)
+		4. Impliment
+	}
+	3. Snake Spelled Title
+	4.
+}
+IDEAS LIST:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+	1. Global Highscore Leaderboards
+	2. Cheat Codes
+	3. 
+}
