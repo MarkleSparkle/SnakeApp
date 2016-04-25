@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
@@ -38,11 +39,11 @@ public class GameActivity extends AppCompatActivity {
     boolean gameOn;
     boolean gamePaused;
     Timer timer;
-    TimerTask gameLoop;
     TextView graphicsField;
     float startX, startY;
     SharedPreferences highscorePrefs,optionPrefs;
     SharedPreferences.Editor highscoreEdit,optionEdit;
+    int dpi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,10 @@ public class GameActivity extends AppCompatActivity {
 
         graphicsField=(TextView)findViewById(R.id.graphicsField);
         graphicsField.setText(canvas.toString());
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        dpi=metrics.densityDpi;
+        Log.d("Game activity","dpi: "+dpi);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -120,7 +125,7 @@ public class GameActivity extends AppCompatActivity {
                         float dx=endX-startX;
                         float dy=endY-startY;
 
-                        if(dx*dx+dy*dy<50){//if there's a tap withing a 5x5 pixel area, a pause is registered
+                        if(dx*dx+dy*dy<(50*dpi/320)){//if there's a tap withing a 7x7 pixel area (adjusted for dpi), a pause is registered
                             if (!gameOn) {//starts game on a tap
                                 initMode();
                                 startGame();
