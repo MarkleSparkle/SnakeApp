@@ -108,27 +108,28 @@ public class GameActivity extends AppCompatActivity {
                         float dx=endX-startX;
                         float dy=endY-startY;
 
+                        if(dx*dx+dy*dy<25){//if there's a tap withing a 5x5 pixel area, a pause is registered
+
+                        }
                         //Log.d("GameActivity","dx: "+dx);
                         //Log.d("GameActivity","dx: "+dx);
+                        else {
+                            if (Math.abs(dy) > Math.abs(dx)) {
+                                if (dy >= 0) {
+                                    direction = 2;
+                                } else {
+                                    direction = 3;
+                                }
+                            } else {
+                                if (dx >= 0) {
+                                    direction = 0;
+                                } else {
+                                    direction = 1;
+                                }
+                            }
 
-                        if(Math.abs(dy)>Math.abs(dx)){
-                            if(dy>=0){
-                                direction=2;
-                            }
-                            else{
-                                direction=3;
-                            }
+                            if (!board.verify(direction)) direction = directionBefore;
                         }
-                        else{
-                            if(dx>=0){
-                                direction=0;
-                            }
-                            else{
-                                direction =1;
-                            }
-                        }
-
-                        if(!board.verify(direction))direction=directionBefore;
                         break;
                     case MotionEvent.ACTION_MOVE:
                         //Log.d("GameActivity","ACTION_MOVE");
