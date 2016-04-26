@@ -125,7 +125,7 @@ public class GameActivity extends AppCompatActivity {
                         float dx=endX-startX;
                         float dy=endY-startY;
 
-                        if(dx*dx+dy*dy<(50*dpi/320)){//if there's a tap withing a 7x7 pixel area (adjusted for dpi), a pause is registered
+                        if(dx*dx+dy*dy<(50*((float)dpi/320)*((float)dpi/320))){//if there's a tap withing a 7x7 pixel area (adjusted for dpi), a pause is registered
                             if (!gameOn) {//starts game on a tap
                                 initMode();
                                 startGame();
