@@ -13,6 +13,7 @@ TODO LIST:
 	}
 	3. Snake Spelled Title
 	4. Double tap pause
+	5. Save your current score and the position of the snake when you back out of the game until you start a new game. 
 }
 IDEAS LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
