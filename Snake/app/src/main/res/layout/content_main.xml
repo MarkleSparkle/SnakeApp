@@ -16,18 +16,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Snake"
-        android:id="@+id/optionsTitle"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/title_size"
+        android:id="@+id/title"
+        android:textSize="@dimen/art_size"
         android:textStyle="bold"
-        android:typeface="serif"
-        android:textColor="#00aa00"
-        android:shadowColor="#005500"
+        android:text="\@|_|_||_|_|_|  |_|     |_|  |_|     |_| |_|   |_|_| |_|_|_|_|_|\@"
+        android:typeface="monospace"
+        android:textColor="#00ff00"
         android:singleLine="false"
-        android:phoneNumber="false" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -68,7 +65,7 @@
         android:gravity="center_horizontal"
         android:text="Programmed By: \nOrson &quot;Orsahnn&quot; Baines and Mark &quot;Sparkles&quot; Frezell"
         android:id="@+id/creditsLabel"
-        android:layout_below="@+id/optionsTitle"
+        android:layout_below="@+id/title"
         android:textSize="@dimen/text_size"
         android:textColor="#008800"
         android:shadowColor="#004400"
