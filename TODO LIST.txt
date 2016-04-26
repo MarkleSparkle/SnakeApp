@@ -6,7 +6,7 @@ TODO LIST:
 		2. 
 	}
 	2. Achievements / Colours {
-		1. Find Colours
+		1. Find Colours (in ColourChoices.txt)
 		2. Deturmine Achievement Milestones
 		3. Deturmine Colours for each achievement (or randomly selected)
 		4. Impliment
