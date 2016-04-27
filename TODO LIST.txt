@@ -14,6 +14,8 @@ TODO LIST:
 	3. Snake Spelled Title
 	4. Double tap pause
 	5. Save your current score and the position of the snake when you back out of the game until you start a new game. 
+	6. Main to options to play.
+	7. move instructions and credits to own activities
 }
 IDEAS LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -24,6 +26,7 @@ IDEAS LIST:
 		1. Power-Ups (Move faster, slower, grow 2x, lose part of snake,etc)
 		2. 1-UP
 		3. Time Based (60 seconds to get as many apples as possible)
+		4. Mice (moving food)
 	}
 	
 }
