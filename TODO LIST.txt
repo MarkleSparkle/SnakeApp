@@ -16,6 +16,7 @@ TODO LIST:
 	5. Save your current score and the position of the snake when you back out of the game until you start a new game. 
 	6. Main to options to play.
 	7. move instructions and credits to own activities
+	8. Half the chance of apples spawning on the sides
 }
 IDEAS LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -27,6 +28,7 @@ IDEAS LIST:
 		2. 1-UP
 		3. Time Based (60 seconds to get as many apples as possible)
 		4. Mice (moving food)
+		5. Multiple apples on the screen at once
 	}
 	
 }
