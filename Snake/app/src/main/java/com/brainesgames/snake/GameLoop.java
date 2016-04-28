@@ -37,24 +37,14 @@ public class GameLoop implements Runnable{
 
     @Override
     public void run() {
+        Log.d("GameLoop","Beginning Game Loop");
+
         SnakeBoard board=new SnakeBoard();
         SnakeCanvas sc=new SnakeCanvas(board);
         AsciiCanvas canvas=new AsciiCanvas(sc.canvas.getWidth(),sc.canvas.getHeight()+2);
         int speed=getSpeed();
         long interval=getInitialInterval(speed);
         int highscore=activity.highscorePrefs.getInt("high"+modeStr(speed),1);
-
-        InputStream is= activity.getResources().openRawResource(R.raw.taptostart);
-        AsciiCanvas tapToStart=AsciiCanvas.load(is);
-        sc.draw();
-        canvas.drawHLine(0, 0, canvas.getWidth(), ' ');
-        canvas.drawString(0, 0, "HIGHSCORE: " + highscore);
-        if(tapToStart==null) {
-            canvas.drawString(canvas.getWidth() / 2 - 6, canvas.getHeight() / 2, "TAP TO START");
-        }
-        else{
-            canvas.copy(tapToStart,(canvas.getWidth()-tapToStart.getWidth())/2,(canvas.getHeight()-tapToStart.getHeight())/2,true);
-        }
 
         final float limitSize=Math.min((float)activity.screenWidth/canvas.getWidth()*1.6f, (float) activity.screenHeight / canvas.getHeight() * 0.8f);
 
@@ -75,7 +65,7 @@ public class GameLoop implements Runnable{
                 board.setDirection(direction);
                 board.move();
                 int sizeNow=board.snake.size();
-                setScore(sizeNow,highscore,speed);
+                highscore=updateHigh(sizeNow,highscore,speed);
 
                 if(board.done){
                     drawGame(sc,canvas,"GAME OVER.  TAP TO TRY AGAIN","FINAL SCORE: " + sizeNow + "   HIGHSCORE: " + highscore);
@@ -94,6 +84,9 @@ public class GameLoop implements Runnable{
                         }
                     }
                 }
+            }
+            else{
+                drawPause(canvas);
             }
             try {
                 Thread.sleep(interval);
@@ -114,6 +107,18 @@ public class GameLoop implements Runnable{
         canvas.drawString(0, 1, line1);
         canvas.copy(sc.canvas, 0, 2, true);
 
+        final String graphicsStr=canvas.toString();
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.graphicsField.setText(graphicsStr);
+            }
+        });
+    }
+
+    void drawPause(AsciiCanvas canvas){
+        canvas.drawHLine(0, 1, canvas.getWidth(), ' ');
+        canvas.drawString(0, 1, "PAUSED. TAP TO RESTART");
         final String graphicsStr=canvas.toString();
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -174,7 +179,8 @@ public class GameLoop implements Runnable{
         }
     }
 
-    void setScore(int score,int highscore,int speed){
+    //updates and retruns the new highscore
+    int updateHigh(int score,int highscore,int speed){
         if(score>highscore){
             highscore=score;
             synchronized(activity) {
@@ -182,6 +188,7 @@ public class GameLoop implements Runnable{
                 activity.highscoreEdit.commit();
             }
         }
+        return highscore;
     }
 
     //called by UI thread

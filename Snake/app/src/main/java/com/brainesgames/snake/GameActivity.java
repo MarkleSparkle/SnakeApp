@@ -43,8 +43,6 @@ public class GameActivity extends AppCompatActivity {
         gamePaused=false;
         lastTap=0L;
 
-
-
         graphicsField=(TextView)findViewById(R.id.graphicsField);
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -58,6 +56,15 @@ public class GameActivity extends AppCompatActivity {
         screenHeight = size.y;
         Log.d("GameActivity","sw"+screenWidth);
         Log.d("GameActivity", "sh" + screenHeight);
+
+        InputStream is= getResources().openRawResource(R.raw.taptostart);
+        AsciiCanvas tapToStart=AsciiCanvas.load(is);
+        if(tapToStart==null) {
+            graphicsField.setText("Tap to Start");
+        }
+        else{
+            graphicsField.setText(tapToStart.toString());
+        }
 
         graphicsField.setOnTouchListener(new View.OnTouchListener() {
 
@@ -74,7 +81,7 @@ public class GameActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
 
                         //Log.d("GameActivity","ACTION_UP");
-                        int direction;
+                        int direction=0;
 
                         float endX = event.getX();
                         float endY = event.getY();
@@ -104,21 +111,23 @@ public class GameActivity extends AppCompatActivity {
                         //Log.d("GameActivity","dx: "+dx);
                         //Log.d("GameActivity","dx: "+dx);
                         else {//otherwise a swipe is registered and continues the game
-                            if (Math.abs(dy) > Math.abs(dx)) {
-                                if (dy >= 0) {
-                                    direction = 2;
+                            if(gameOn) {
+                                if (Math.abs(dy) > Math.abs(dx)) {
+                                    if (dy >= 0) {
+                                        direction = 2;
+                                    } else {
+                                        direction = 3;
+                                    }
                                 } else {
-                                    direction = 3;
+                                    if (dx >= 0) {
+                                        direction = 0;
+                                    } else {
+                                        direction = 1;
+                                    }
                                 }
-                            } else {
-                                if (dx >= 0) {
-                                    direction = 0;
-                                } else {
-                                    direction = 1;
-                                }
-                            }
 
-                            game.setDirection(direction);
+                                game.setDirection(direction);
+                            }
                         }
                         break;
                     case MotionEvent.ACTION_MOVE:
