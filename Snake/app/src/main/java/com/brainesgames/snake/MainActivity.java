@@ -1,8 +1,11 @@
 package com.brainesgames.snake;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +21,15 @@ public class MainActivity extends AppCompatActivity {
 
         TextView title=(TextView) findViewById(R.id.title);
         AsciiCanvas ac=AsciiCanvas.load(getResources().openRawResource(R.raw.titleart));
+
+        //set title as big as possible
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenWidth = size.x;
+        float maxFontSize=(float)screenWidth / ac.getWidth()*1.57f;
+        title.setTextSize(TypedValue.COMPLEX_UNIT_PX, maxFontSize);
+
 
         if(ac==null){
             title.setText("Snake");

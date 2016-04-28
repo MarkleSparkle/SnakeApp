@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Snake</string>
+    <string name="app_name">ASCII Snake</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_game">GameActivity</string>
     <string name="title_activity_options">OptionsActivity</string>

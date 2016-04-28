@@ -38,6 +38,7 @@ public class GameActivity extends AppCompatActivity {
     int direction;
     boolean gameOn;
     boolean gamePaused;
+    long lastTap;
     Timer timer;
     TextView graphicsField;
     float startX, startY;
@@ -66,6 +67,7 @@ public class GameActivity extends AppCompatActivity {
         startX=startY=0;
         gameOn=false;
         gamePaused=false;
+        lastTap=0L;
 
         InputStream is= getResources().openRawResource(R.raw.taptostart);
         AsciiCanvas tapToStart=AsciiCanvas.load(is);
@@ -125,19 +127,25 @@ public class GameActivity extends AppCompatActivity {
                         float dx=endX-startX;
                         float dy=endY-startY;
 
-                        if(dx*dx+dy*dy<(50*((float)dpi/320)*((float)dpi/320))){//if there's a tap withing a 7x7 pixel area (adjusted for dpi), a pause is registered
+                        if(dx*dx+dy*dy<(60*((float)dpi/320)*((float)dpi/320))){//if there's a tap withing a 7x7 pixel area (adjusted for dpi), a pause is registered
                             if (!gameOn) {//starts game on a tap
                                 initMode();
                                 startGame();
                             }
                             else if(!gamePaused){
-                                endTimer();
-                                gamePaused=true;
-                                canvas.drawString(0,1,"PAUSED. TAP TO UNPAUSE");
-                                graphicsField.setText(canvas.toString());
+                                long thisTap=System.currentTimeMillis();
+                                //pause if double tap
+                                if(thisTap-lastTap<400) {
+                                    endTimer();
+                                    gamePaused = true;
+                                    canvas.drawString(0, 1, "PAUSED. TAP TO UNPAUSE");
+                                    graphicsField.setText(canvas.toString());
+                                }
+                                //save the time of this tap
+                                lastTap=thisTap;
                             }
                             else{
-                                gamePaused=false;
+                                gamePaused = false;
                                 newTimer();
                             }
 

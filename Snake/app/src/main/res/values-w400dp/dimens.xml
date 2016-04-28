@@ -3,5 +3,5 @@
     <dimen name="title_size">80sp</dimen>
     <dimen name="button_size">40sp</dimen>
     <dimen name="text_size">28sp</dimen>
-    <dimen name="art_size">9sp</dimen>
+    <dimen name="title_margin">8dp</dimen>
 </resources>
