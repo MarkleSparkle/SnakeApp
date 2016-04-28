@@ -103,6 +103,7 @@ public class GameLoop implements Runnable{
         }
 
         activity.gameEnd();
+        Log.d("GameLoop", "Ending Game Loop");
     }
 
     void drawGame(SnakeCanvas sc,AsciiCanvas canvas,String line0,String line1){

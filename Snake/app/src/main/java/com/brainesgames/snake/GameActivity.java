@@ -81,7 +81,7 @@ public class GameActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_UP:
 
                         //Log.d("GameActivity","ACTION_UP");
-                        int direction=0;
+                        int direction;
 
                         float endX = event.getX();
                         float endY = event.getY();
@@ -137,6 +137,15 @@ public class GameActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        //initialize game so is never null;
+        game=new GameLoop(this);
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        if(gameOn)game.setPause(true);
     }
 
     void startGame(){
@@ -145,7 +154,9 @@ public class GameActivity extends AppCompatActivity {
         //create new gameLoop
         game=new GameLoop(this);
         //start GameLoop thread
-        new Thread(game).start();
+        Thread gameThread=new Thread(game,"GameThread");
+        gameThread.setDaemon(true);
+        gameThread.start();
     }
 
     void gameEnd(){
