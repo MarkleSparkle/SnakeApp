@@ -87,6 +87,13 @@ public class GameLoop implements Runnable{
             }
             else{
                 drawPause(canvas);
+                try {
+                    synchronized (this) {
+                        wait();
+                    }
+                } catch (InterruptedException e) {
+                    Log.d("GameLoop", "Thread interrupted");
+                }
             }
             try {
                 Thread.sleep(interval);
@@ -196,8 +203,9 @@ public class GameLoop implements Runnable{
         direction=dir;
     }
 
-    //called by UI thread (does not need to be synchronized because volatile boolean isPaused)
-    void setPause(boolean p){
+    //called by UI thread
+    synchronized void setPause(boolean p){
         isPaused = p;
+        notifyAll();
     }
 }
