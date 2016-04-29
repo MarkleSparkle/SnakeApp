@@ -35,7 +35,7 @@
         android:textStyle="bold"
         android:textColor="#00dd00"
         android:background="#666666"
-        android:onClick="startGame"
+        android:onClick="options"
         android:padding="10dp"
         android:layout_marginBottom="21dp"
         android:layout_above="@+id/button2"
@@ -46,54 +46,15 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OPTIONS"
+        android:text="HOW TO PLAY"
         android:id="@+id/button2"
-        android:layout_marginBottom="14dp"
-        android:textSize="30sp"
+        android:textSize="@dimen/button_size"
         android:textColor="#00cc00"
-        android:padding="10dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:background="#999999"
-        android:onClick="optionsMenu" />
+        android:onClick="optionsMenu"
+        android:padding="10dp"
+        android:layout_marginBottom="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Programmed By: \nOrson &quot;Orsahnn&quot; Baines and Mark &quot;Sparkles&quot; Frezell"
-        android:id="@+id/creditsLabel"
-        android:layout_below="@+id/title"
-        android:textSize="@dimen/text_size"
-        android:textColor="#008800"
-        android:shadowColor="#004400"
-        android:textStyle="italic" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Controls:\n-Swipe to Turn\n-Double Tap to Pause"
-        android:id="@+id/instructionsLabel"
-        android:layout_below="@+id/creditsLabel"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/text_size"
-        android:textColor="#00bf00"
-        android:shadowColor="#004400"
-        android:layout_marginTop="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Instructions:\n-Eat the apples to increase your score\n-Avoid the walls and your tail"
-        android:id="@+id/textView"
-        android:layout_below="@+id/instructionsLabel"
-        android:textSize="@dimen/text_size"
-        android:textColor="#00e100"
-        android:shadowColor="#004400"
-        android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
 </RelativeLayout>

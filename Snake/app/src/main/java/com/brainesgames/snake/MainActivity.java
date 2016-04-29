@@ -61,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }*/
     /** Called when the user clicks the OPTIONS button */
-    public void optionsMenu(View v) { startActivity(new Intent(this,OptionsActivity.class)); }
+    public void optionsMenu(View v) { startActivity(new Intent(this,HowToPlay.class)); }
 
 
     /** Called when the user clicks the START button */
-    public void startGame(View v){
-        startActivity(new Intent(this,GameActivity.class));
+    public void options(View v){
+        startActivity(new Intent(this,OptionsActivity.class));
     }
 }
 

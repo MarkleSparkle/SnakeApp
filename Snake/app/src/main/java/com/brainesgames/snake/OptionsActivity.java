@@ -1,5 +1,6 @@
 package com.brainesgames.snake;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -86,6 +87,9 @@ public class OptionsActivity extends AppCompatActivity {
                 opEdit.commit();
             }
         });
+    }
+    public void startGame(View v){
+        startActivity(new Intent(this,GameActivity.class));
     }
 
 }

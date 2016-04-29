@@ -32,7 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/optionsTitle"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linearLayout"
+        android:weightSum="1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,10 +50,11 @@
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="322dp"
             android:layout_gravity="center_horizontal"
             android:id="@+id/speedGroup"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            android:layout_weight="0.79">
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -96,6 +99,19 @@
                 android:textColor="#00aa00" />
 
         </RadioGroup>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Game"
+            android:id="@+id/button3"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#00dd00"
+            android:background="#666666"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="30sp"
+            android:onClick="startGame" />
 
     </LinearLayout>
 
