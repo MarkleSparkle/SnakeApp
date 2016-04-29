@@ -3,13 +3,11 @@ TODO LIST:
 {
 	1. More Game Modes{
 		1. Obstacles
-		2. 
 	}
 	2. Achievements / Colours {
 		1. Find Colours (in ColourChoices.txt)
 		2. Deturmine Achievement Milestones
 		3. Deturmine Colours for each achievement (or randomly selected)
-		4. Impliment
 	}
 	3. Snake Spelled Title
 	4. Double tap pause
@@ -22,13 +20,23 @@ IDEAS LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
 	1. Global Highscore Leaderboards
-	2. Cheat Codes
+	2. Cheat Codes{
+		1. "noob" - handicap function
+		2. "Sparkles" - something special
+		3. "Orsahn" - something special
+		4. "420" - Adds MLG image to title screen??
+	}
 	3. Game modes{
 		1. Power-Ups (Move faster, slower, grow 2x, lose part of snake,etc)
 		2. 1-UP
 		3. Time Based (60 seconds to get as many apples as possible)
 		4. Mice (moving food)
 		5. Multiple apples on the screen at once
+	}
+	4. Tip of the Day{
+		1. "Try flipping your device horizontally while playing"
+		2. Random weird speaches: "Hehehe", "ohai \o/", ascii emojis
+		3. "Plan in advance, drag your finger without releasing"
 	}
 	
 }

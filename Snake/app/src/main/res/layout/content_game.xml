@@ -19,6 +19,9 @@
         android:id="@+id/graphicsField"
         android:textColor="#00aa00"
         android:typeface="monospace"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textSize="@dimen/art_size"
+        android:text="_____ \\ _  __/_  __ `/__  ___/_  __/"
+        android:gravity="center" />
 
 </RelativeLayout>

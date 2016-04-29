@@ -8,6 +8,7 @@ public class SnakeBoard {
 	OrderedPair food;
 	int width,height;
 	boolean done;
+	int direction;
 	
 	SnakeBoard(){
 		width=20;
@@ -17,6 +18,7 @@ public class SnakeBoard {
 	
 	void newBoard(){
 		done=false;
+        direction=0;
 		snake=new ArrayList<OrderedPair>();
 		snake.add(new OrderedPair(width/2,height/2));
 		generateFood();
@@ -34,12 +36,15 @@ public class SnakeBoard {
 	}
 	
 	void generateFood(){
-		do{
-			food=new OrderedPair(r.nextInt(width),r.nextInt(height));
-		}while(in(food,snake));
+        //ensure board isnt full
+        if(snake.size()<width*height) {
+            do {
+                food = new OrderedPair(r.nextInt(width), r.nextInt(height));
+            } while (in(food, snake));
+        }
 	}
 	
-	void move(int direction){
+	void move(){
 		if(!done){
 			OrderedPair next;
 			OrderedPair head=snake.get(0);
@@ -73,12 +78,12 @@ public class SnakeBoard {
 	}
 	
 	//makes sure next move wont move right back into self
-	public boolean verify(int direction){
+	public boolean verify(int dir){
 		if(snake.size()==1)return true;
 		OrderedPair next;
 		OrderedPair head=snake.get(0);
 		//0 right 1 left 2 down 3 up
-		switch(direction){
+		switch(dir){
 			case 0:
 				next=new OrderedPair(head.getX()+1,head.getY());
 				break;
@@ -94,4 +99,8 @@ public class SnakeBoard {
 		
 		return !next.equals(snake.get(1));
 	}
+
+    public void setDirection(int dir){
+        if(verify(dir))direction=dir;
+    }
 }
