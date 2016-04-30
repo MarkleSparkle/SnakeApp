@@ -8,12 +8,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioGroup;
 
 public class OptionsActivity extends AppCompatActivity {
     SharedPreferences optionPrefs;
-    SharedPreferences.Editor opEdit;
+    SharedPreferences.Editor optionEdit;
     RadioGroup speedGroup;
+    CheckBox soundEnabled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,7 @@ public class OptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_options);
 
         optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
-        opEdit=optionPrefs.edit();
+        optionEdit=optionPrefs.edit();
 
         speedGroup= (RadioGroup)findViewById(R.id.speedGroup);
 
@@ -58,35 +61,46 @@ public class OptionsActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String saveSpeed="";
-                switch (checkedId){
+                String saveSpeed = "";
+                switch (checkedId) {
                     case R.id.slowButton:
-                        saveSpeed="s";
+                        saveSpeed = "s";
                         break;
                     case R.id.normalButton:
-                        saveSpeed="n";
+                        saveSpeed = "n";
                         break;
                     case R.id.fastButton:
-                        saveSpeed="f";
+                        saveSpeed = "f";
                         break;
                     case R.id.extremeButton:
-                        saveSpeed="x";
+                        saveSpeed = "x";
                         break;
                     case R.id.dynamicButton:
-                        saveSpeed="d";
+                        saveSpeed = "d";
                         break;
                     case R.id.randomButton:
-                        saveSpeed="r";
+                        saveSpeed = "r";
                         break;
                     default:
                         speedGroup.check(R.id.randomButton);
-                        saveSpeed="n";
+                        saveSpeed = "n";
                 }
 
-                opEdit.putString("speed",saveSpeed);
-                opEdit.commit();
+                optionEdit.putString("speed", saveSpeed);
+                optionEdit.commit();
             }
         });
+
+        soundEnabled=(CheckBox)findViewById(R.id.soundBox);
+        soundEnabled.setChecked(optionPrefs.getBoolean("soundEnabled",true));
+        soundEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                optionEdit.putBoolean("soundEnabled",isChecked);
+                optionEdit.commit();
+            }
+        });
+
     }
     public void startGame(View v){
         startActivity(new Intent(this,GameActivity.class));

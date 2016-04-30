@@ -6,15 +6,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import com.brainesgames.ascii.AsciiCanvas;
 import java.io.InputStream;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
     boolean gameOn;
@@ -23,7 +20,7 @@ public class GameActivity extends AppCompatActivity {
     long lastTap;
     TextView graphicsField;
     float startX, startY;
-    SharedPreferences highscorePrefs,optionPrefs;
+    SharedPreferences highscorePrefs,optionPrefs,soundPrefs;
     SharedPreferences.Editor highscoreEdit,optionEdit;
     int dpi;
     int screenWidth,screenHeight;
@@ -37,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
         highscoreEdit=highscorePrefs.edit();
         optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
         optionEdit=optionPrefs.edit();
+        soundPrefs=getApplication().getSharedPreferences("sound", MODE_PRIVATE);
 
         startX=startY=0;
         gameOn=false;
@@ -57,14 +55,14 @@ public class GameActivity extends AppCompatActivity {
         Log.d("GameActivity","sw"+screenWidth);
         Log.d("GameActivity", "sh" + screenHeight);
 
-        InputStream is= getResources().openRawResource(R.raw.taptostart);
-        AsciiCanvas tapToStart=AsciiCanvas.load(is);
-        if(tapToStart==null) {
-            graphicsField.setText("Tap to Start");
-        }
-        else{
-            graphicsField.setText(tapToStart.toString());
-        }
+//        InputStream is= getResources().openRawResource(R.raw.taptostart);
+//        AsciiCanvas tapToStart=AsciiCanvas.load(is);
+//        if(tapToStart==null) {
+//            graphicsField.setText("Tap to Start");
+//        }
+//        else{
+//            graphicsField.setText(tapToStart.toString());
+//        }
 
         graphicsField.setOnTouchListener(new View.OnTouchListener() {
 
@@ -138,8 +136,8 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        //initialize game so is never null;
-        game=new GameLoop(this);
+        //start the game
+        startGame();
     }
 
     @Override

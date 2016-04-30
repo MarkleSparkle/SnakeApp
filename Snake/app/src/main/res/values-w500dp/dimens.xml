@@ -4,4 +4,5 @@
     <dimen name="text_size">38sp</dimen>
     <dimen name="title_margin">10dp</dimen>
     <dimen name="art_size">16sp</dimen>
+    <dimen name="radio_text_size">18sp</dimen>
 </resources>

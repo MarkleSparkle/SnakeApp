@@ -16,7 +16,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Options"
         android:id="@+id/optionsTitle"
         android:layout_alignParentTop="true"
@@ -50,16 +49,16 @@
 
         <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="322dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:id="@+id/speedGroup"
-            android:paddingLeft="10dp"
-            android:layout_weight="0.79">
+            android:paddingLeft="20dp">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Slow"
+                android:textSize="@dimen/radio_text_size"
                 android:id="@+id/slowButton"
                 android:textColor="#00aa00" />
 
@@ -67,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Normal"
+                android:textSize="@dimen/radio_text_size"
                 android:id="@+id/normalButton"
                 android:textColor="#00aa00" />
 
@@ -74,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fast"
+                android:textSize="@dimen/radio_text_size"
                 android:id="@+id/fastButton"
                 android:textColor="#00aa00" />
 
@@ -81,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Extreme"
+                android:textSize="@dimen/radio_text_size"
                 android:id="@+id/extremeButton"
                 android:textColor="#00aa00" />
 
@@ -88,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dynamic (Speed increases with every five apples)"
+                android:textSize="@dimen/radio_text_size"
                 android:id="@+id/dynamicButton"
                 android:textColor="#00aa00" />
 
@@ -95,24 +98,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Random (Speed changes randomly with every apple)"
+                android:textSize="@dimen/radio_text_size"
                 android:id="@+id/randomButton"
                 android:textColor="#00aa00" />
 
         </RadioGroup>
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Game"
-            android:id="@+id/button3"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#00dd00"
-            android:background="#666666"
-            android:padding="10dp"
-            android:layout_centerHorizontal="true"
-            android:textSize="30sp"
-            android:onClick="startGame" />
+            android:text="Sound"
+            android:id="@+id/soundLabel"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textColor="#00aa00"
+            android:paddingLeft="10dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enable Sound"
+            android:textSize="@dimen/radio_text_size"
+            android:textColor="#00aa00"
+            android:id="@+id/soundBox"
+            android:layout_marginLeft="20dp"/>
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Game"
+        android:id="@+id/button3"
+        android:textColor="#00dd00"
+        android:background="#666666"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:onClick="startGame"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp" />
 
 </RelativeLayout>
