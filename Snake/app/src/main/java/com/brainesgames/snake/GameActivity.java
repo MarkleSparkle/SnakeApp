@@ -8,6 +8,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 import com.brainesgames.ascii.AsciiCanvas;
@@ -18,12 +20,14 @@ public class GameActivity extends AppCompatActivity {
     boolean gamePaused;
     GameLoop game;
     long lastTap;
-    TextView graphicsField;
     float startX, startY;
     SharedPreferences highscorePrefs,optionPrefs,soundPrefs;
     SharedPreferences.Editor highscoreEdit,optionEdit;
     int dpi;
     int screenWidth,screenHeight;
+
+    SurfaceHolder surfaceHolder;
+    //boolean surfaceAvailable,surfaceChanged;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,8 @@ public class GameActivity extends AppCompatActivity {
         gamePaused=false;
         lastTap=0L;
 
-        graphicsField=(TextView)findViewById(R.id.graphicsField);
+        SurfaceView gameSV=(SurfaceView)findViewById(R.id.gameSV);
+        surfaceHolder=gameSV.getHolder();
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         dpi=metrics.densityDpi;
@@ -55,16 +60,7 @@ public class GameActivity extends AppCompatActivity {
         Log.d("GameActivity","sw"+screenWidth);
         Log.d("GameActivity", "sh" + screenHeight);
 
-//        InputStream is= getResources().openRawResource(R.raw.taptostart);
-//        AsciiCanvas tapToStart=AsciiCanvas.load(is);
-//        if(tapToStart==null) {
-//            graphicsField.setText("Tap to Start");
-//        }
-//        else{
-//            graphicsField.setText(tapToStart.toString());
-//        }
-
-        graphicsField.setOnTouchListener(new View.OnTouchListener() {
+        gameSV.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {//listens for the direction of the users swipe in game
@@ -157,7 +153,7 @@ public class GameActivity extends AppCompatActivity {
         gameThread.start();
     }
 
-    void gameEnd(){
+    synchronized void gameEnd(){
         gameOn=false;
     }
 }

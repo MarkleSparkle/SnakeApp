@@ -25,8 +25,8 @@ public class SnakeBoard {
 	}
 	
 	boolean in(OrderedPair op,ArrayList<OrderedPair> snake){
-		for(OrderedPair op2:snake){
-			if(op.equals(op2))return true;
+		for(int i=0;i<snake.size();i++){
+			if(op.equals(snake.get(i)))return true;
 		}
 		return false;
 	}
