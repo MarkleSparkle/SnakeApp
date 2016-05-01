@@ -20,7 +20,7 @@ public class SnakeCanvas {
 		//draw snakes
 		for(OrderedPair op:board.snake)drawCell(op);
 		//draw food
-		canvas.set(board.food.getX()*2+1,board.food.getY()+1,'\u03b4');
+		canvas.set(board.food.getX()*2+1,board.food.getY()+1,'δ');
 	}
 	
 	void drawCell(OrderedPair op){
