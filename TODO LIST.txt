@@ -11,6 +11,7 @@ TODO LIST:
 	}
 	5. Save your current score and the position of the snake when you back out of the game until you start a new game. 
 	8. Half the chance of apples spawning on the sides
+	
 }
 TO FIX LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,11 +21,12 @@ IDEAS LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
 	1. Global Highscore Leaderboards
-	2. Cheat Codes{
+	2. Cheat Codes/ Easter Eggs{
 		1. "noob" - handicap function
 		2. "Sparkles" - something special
 		3. "Orsahn" - something special
 		4. "420" - Adds MLG image to title screen??
+		5. Rainbow - Adds rainbow button to main screen / makes all messages (title screen) flash rainbow!
 	}
 	3. Game modes{
 		1. Power-Ups (Move faster, slower, grow 2x, lose part of snake,etc)
