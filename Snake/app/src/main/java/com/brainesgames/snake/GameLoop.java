@@ -30,6 +30,13 @@ public class GameLoop implements Runnable{
     volatile boolean isPaused;
     volatile int direction;
 
+    private SnakeBoard board;
+    private SnakeCanvas sc;
+    private AsciiCanvas canvas;
+    private DrawBoard uiDraw;
+    private int highscore,score,speed;
+    private MediaPlayer mediaPlayer;
+
     GameLoop(GameActivity activity){
         this.activity=activity;
         isPaused=false;
@@ -40,14 +47,15 @@ public class GameLoop implements Runnable{
     public void run() {
         Log.d("GameLoop","Beginning Game Loop");
 
-        SnakeBoard board=new SnakeBoard();
-        SnakeCanvas sc=new SnakeCanvas(board);
-        AsciiCanvas canvas=new AsciiCanvas(sc.canvas.getWidth(),sc.canvas.getHeight()+2);
-        int speed=getSpeed();
-        long interval=getInitialInterval(speed);
-        int highscore=activity.highscorePrefs.getInt("high" + modeStr(speed), 1);
-        DrawBoard uiDraw=new DrawBoard(activity,"");
-        MediaPlayer mediaPlayer=null;
+        board=new SnakeBoard();
+        sc=new SnakeCanvas(board);
+        canvas=new AsciiCanvas(sc.canvas.getWidth(),sc.canvas.getHeight()+2);
+        speed=getSpeed();
+        long interval=getInitialInterval();
+        highscore=activity.highscorePrefs.getInt("high" + modeStr(speed), 1);
+        score=1;
+        uiDraw=new DrawBoard(activity,"");
+        mediaPlayer=null;
 
         final float limitSize=Math.min((float)activity.screenWidth/canvas.getWidth()*1.6f, (float) activity.screenHeight / canvas.getHeight() * 0.8f);
 
@@ -61,7 +69,7 @@ public class GameLoop implements Runnable{
             }
         });
 
-        drawGame(sc,canvas,"SCORE: 1   HIGHSCORE: " + highscore,"",uiDraw);
+        drawGame("SCORE: 1   HIGHSCORE: " + highscore,"");
 
         boolean soundEnabled;
         synchronized (activity){
@@ -69,30 +77,43 @@ public class GameLoop implements Runnable{
         }
         if(soundEnabled)mediaPlayer=MediaPlayer.create(activity,R.raw.snaketheme);
         if(mediaPlayer!=null){
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    mediaPlayer.release();
+                    mediaPlayer=null;
+                    return true;
+                }
+            });
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
-    }
+        }
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Log.d("GameLoop","Thread interrupted");
+        }
 
         while(!board.done){
             if(!isPaused){
-                int sizeBefore = board.snake.size();
+                int scoreBefore = score;
                 board.setDirection(direction);
                 board.move();
-                int sizeNow=board.snake.size();
-                highscore=updateHigh(sizeNow,highscore,speed);
+                score=board.snake.size();
+                if(score>highscore)highscore=score;
 
                 if(board.done){
-                    drawGame(sc,canvas,"GAME OVER.  TAP TO TRY AGAIN","FINAL SCORE: " + sizeNow + "   HIGHSCORE: " + highscore,uiDraw);
+                    drawGame("GAME OVER.  TAP TO TRY AGAIN","FINAL SCORE: " + score + "   HIGHSCORE: " + highscore);
                 }
                 else{
-                    drawGame(sc,canvas,"SCORE: " + sizeNow + "   HIGHSCORE: " + highscore,"",uiDraw);
+                    drawGame("SCORE: " + score + "   HIGHSCORE: " + highscore,"");
 
-                    if (sizeNow > sizeBefore) {
+                    if (score > scoreBefore) {
                         if (speed == SPEED_RANDOM) {
                             //set and apply new interval
                             interval = SnakeBoard.r.nextInt(125) + 50;
                         } else if (speed == SPEED_DYNAMIC) {
-                            if (sizeNow % 5 == 0 && interval > 35) {
+                            if (score % 5 == 0 && interval > 35) {
                                 interval -= 10;
                             }
                         }
@@ -100,7 +121,7 @@ public class GameLoop implements Runnable{
                 }
             }
             else{
-                drawPause(canvas,uiDraw);
+                drawPause();
                 if(mediaPlayer!=null)mediaPlayer.pause();
                 try {
                     synchronized (this) {
@@ -118,6 +139,7 @@ public class GameLoop implements Runnable{
             }
         }
 
+        updateHigh();
         activity.gameEnd();
         if(mediaPlayer!=null){
             mediaPlayer.stop();
@@ -126,7 +148,7 @@ public class GameLoop implements Runnable{
         Log.d("GameLoop", "Ending Game Loop");
     }
 
-    void drawGame(SnakeCanvas sc,AsciiCanvas canvas,String line0,String line1,DrawBoard uiDraw){
+    void drawGame(String line0,String line1){
         //clear the first two line of canvas (rest will be overridden by sc)
         canvas.drawHLine(0, 0, canvas.getWidth(), ' ');
         canvas.drawHLine(0, 1, canvas.getWidth(), ' ');
@@ -139,7 +161,7 @@ public class GameLoop implements Runnable{
         activity.runOnUiThread(uiDraw);
     }
 
-    void drawPause(AsciiCanvas canvas,DrawBoard uiDraw){
+    void drawPause(){
         canvas.drawHLine(0, 1, canvas.getWidth(), ' ');
         canvas.drawString(0, 1, "PAUSED. TAP TO RESTART");
         uiDraw.setText(canvas.toString());
@@ -190,7 +212,7 @@ public class GameLoop implements Runnable{
         }
     }
 
-    long getInitialInterval(int speed){
+    long getInitialInterval(){
         switch(speed){
             case SPEED_SLOW:return INTERVAL_SLOW;
             case SPEED_NORMAL:return INTERVAL_NORMAL;
@@ -201,15 +223,11 @@ public class GameLoop implements Runnable{
     }
 
     //updates and retruns the new highscore
-    int updateHigh(int score,int highscore,int speed){
-        if(score>highscore){
-            highscore=score;
-            synchronized(activity) {
-                activity.highscoreEdit.putInt("high" + modeStr(speed), highscore);
-                activity.highscoreEdit.commit();
-            }
+    void updateHigh(){
+        synchronized(activity) {
+            activity.highscoreEdit.putInt("high" + modeStr(speed), highscore);
+            activity.highscoreEdit.commit();
         }
-        return highscore;
     }
 
     //called by UI thread
@@ -220,6 +238,16 @@ public class GameLoop implements Runnable{
     //called by UI thread
     synchronized void setPause(boolean p){
         isPaused = p;
+        updateHigh();
         notifyAll();
+    }
+    @Override
+    public void finalize(){
+        if(mediaPlayer!=null)mediaPlayer.release();
+        try {
+            super.finalize();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 }
