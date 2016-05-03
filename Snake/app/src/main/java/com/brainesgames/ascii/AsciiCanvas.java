@@ -1,4 +1,7 @@
 package com.brainesgames.ascii;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 import java.io.*;
 import java.util.*;
 public class AsciiCanvas {
@@ -230,4 +233,10 @@ public class AsciiCanvas {
 		}
 		return null;
 	}
+
+	public void draw(Canvas c,float yi,float xi,float gap,Paint p){
+        for(int y=0;y<height;y++){
+            c.drawText(canvas,(width+1)*y,width,xi,yi+y*gap,p);
+        }
+    }
 }

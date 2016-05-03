@@ -18,25 +18,23 @@ public class DrawBoard{
     final static int PAUSE_LINE2=1;
     final static int OVER_LINE2=2;
     private AsciiCanvas ac;
-    private GameActivity activity;
+    private SurfaceHolder sh;
     private Canvas c;
-    private int width,height,cwidth,cheight,acwidth,acheight;
+    private int width,height;
+    private float cheight;
     private Paint p;
-    private Rect dest;
     char[] line1,gameoverLine,pauseLine;
     int  line2Type;
 
     static Bitmap vline,hline,apple;
     static boolean bitmapsInitialized=false;
 
-    DrawBoard(GameActivity act,AsciiCanvas asciiCanvas){
+    DrawBoard(SurfaceHolder surfaceHolder,AsciiCanvas asciiCanvas){
         ac=asciiCanvas;
-        acwidth=ac.getWidth();
-        acheight=ac.getHeight();
-        activity=act;
+        sh=surfaceHolder;
         line1=new char[28];
-        gameoverLine=new char[27];
-        pauseLine=new char[22];
+        gameoverLine=new char[28];
+        pauseLine=new char[24];
         line2Type=NO_LINE2;
         width=0;
         height=0;
@@ -45,36 +43,36 @@ public class DrawBoard{
         p.setTextAlign(Paint.Align.LEFT);
         p.setTypeface(Typeface.MONOSPACE);
         //p.setTextScaleX(2);
-        dest=new Rect();
         initBitmaps();
         initLines();
     }
 
     void initLines(){
-        line1[0]='S';
-        line1[1]='C';
-        line1[2]='O';
-        line1[3]='R';
-        line1[4]='E';
-        line1[5]=':';
-        line1[6]=' ';
-        //used for score
+        line1[0]=' ';
+        line1[1]='S';
+        line1[2]='C';
+        line1[3]='O';
+        line1[4]='R';
+        line1[5]='E';
+        line1[6]=':';
         line1[7]=' ';
+        //used for score
         line1[8]=' ';
         line1[9]=' ';
-        //seperate score and highscore
         line1[10]=' ';
+        //seperate score and highscore
         line1[11]=' ';
         line1[12]=' ';
-        line1[13]='H';
-        line1[14]='I';
-        line1[15]='G';
-        line1[16]='H';
-        line1[17]='S';
-        line1[18]='C';
-        line1[19]='O';
-        line1[20]='R';
-        line1[21]='E';
+        line1[13]=' ';
+        line1[14]='H';
+        line1[15]='I';
+        line1[16]='G';
+        line1[17]='H';
+        line1[18]='S';
+        line1[19]='C';
+        line1[20]='O';
+        line1[21]='R';
+        line1[22]='E';
         line1[23]=':';
         line1[24]=' ';
         //used for highscore
@@ -82,56 +80,84 @@ public class DrawBoard{
         line1[26]=' ';
         line1[27]=' ';
 
-        gameoverLine[0]='G';
-        gameoverLine[1]='A';
-        gameoverLine[2]='M';
-        gameoverLine[3]='E';
-        gameoverLine[4]=' ';
-        gameoverLine[5]='O';
-        gameoverLine[6]='V';
-        gameoverLine[7]='E';
-        gameoverLine[8]='R';
-        gameoverLine[9]='.';
-        gameoverLine[10]=' ';
-        gameoverLine[11]='T';
-        gameoverLine[12]='A';
-        gameoverLine[13]='P';
-        gameoverLine[14]=' ';
-        gameoverLine[15]='T';
-        gameoverLine[16]='O';
-        gameoverLine[17]=' ';
-        gameoverLine[18]='T';
-        gameoverLine[19]='R';
-        gameoverLine[20]='Y';
-        gameoverLine[21]=' ';
-        gameoverLine[22]='A';
-        gameoverLine[23]='G';
-        gameoverLine[24]='A';
-        gameoverLine[25]='I';
-        gameoverLine[26]='N';
+        gameoverLine[0]=' ';
+        gameoverLine[1]='G';
+        gameoverLine[2]='A';
+        gameoverLine[3]='M';
+        gameoverLine[4]='E';
+        gameoverLine[5]=' ';
+        gameoverLine[6]='O';
+        gameoverLine[7]='V';
+        gameoverLine[8]='E';
+        gameoverLine[9]='R';
+        gameoverLine[10]='.';
+        gameoverLine[11]=' ';
+        gameoverLine[12]='T';
+        gameoverLine[13]='A';
+        gameoverLine[14]='P';
+        gameoverLine[15]=' ';
+        gameoverLine[16]='T';
+        gameoverLine[17]='O';
+        gameoverLine[18]=' ';
+        gameoverLine[19]='T';
+        gameoverLine[20]='R';
+        gameoverLine[21]='Y';
+        gameoverLine[22]=' ';
+        gameoverLine[23]='A';
+        gameoverLine[24]='G';
+        gameoverLine[25]='A';
+        gameoverLine[26]='I';
+        gameoverLine[27]='N';
 
-        pauseLine[0]='P';
-        pauseLine[1]='A';
-        pauseLine[2]='U';
-        pauseLine[3]='S';
-        pauseLine[4]='E';
-        pauseLine[5]='D';
-        pauseLine[6]='.';
-        pauseLine[7]=' ';
-        pauseLine[8]='T';
-        pauseLine[9]='A';
-        pauseLine[10]='P';
-        pauseLine[11]=' ';
-        pauseLine[12]='T';
-        pauseLine[13]='O';
-        pauseLine[14]=' ';
-        pauseLine[15]='R';
-        pauseLine[16]='E';
-        pauseLine[17]='S';
-        pauseLine[18]='T';
-        pauseLine[19]='A';
-        pauseLine[20]='R';
-        pauseLine[21]='T';
+        pauseLine[0]=' ';
+        pauseLine[1]='P';
+        pauseLine[2]='A';
+        pauseLine[3]='U';
+        pauseLine[4]='S';
+        pauseLine[5]='E';
+        pauseLine[6]='D';
+        pauseLine[7]='.';
+        pauseLine[8]=' ';
+        pauseLine[9]='T';
+        pauseLine[10]='A';
+        pauseLine[11]='P';
+        pauseLine[12]=' ';
+        pauseLine[13]='T';
+        pauseLine[14]='O';
+        pauseLine[15]=' ';
+        pauseLine[16]='R';
+        pauseLine[17]='E';
+        pauseLine[18]='S';
+        pauseLine[19]='T';
+        pauseLine[20]='A';
+        pauseLine[22]='R';
+        pauseLine[23]='T';
+    }
+
+    void setScoreText(int score,int highscore){
+        //set score text
+        if(score<10)line1[8]=(char)('0'+score);
+        else if(score<100){
+            line1[8]=(char)('0'+score/10);
+            line1[9]=(char)('0'+score%10);
+        }
+        else{
+            line1[8]=(char)('0'+score/100);
+            line1[9]=(char)('0'+score%100/10);
+            line1[10]=(char)('0'+score%10);
+        }
+        //set highscore text
+        if(highscore<10)line1[25]=(char)('0'+highscore);
+        else if(highscore<100){
+            line1[25]=(char)('0'+highscore/10);
+            line1[26]=(char)('0'+highscore%10);
+        }
+        else{
+            line1[25]=(char)('0'+highscore/100);
+            line1[26]=(char)('0'+highscore%100/10);
+            line1[27]=(char)('0'+highscore%10);
+        }
+
     }
 
     void setLine2(int line2){
@@ -161,15 +187,18 @@ public class DrawBoard{
     }
 
     void draw(){
-        c = activity.surfaceHolder.lockCanvas();
+        c = sh.lockCanvas();
         if(c!=null) {
             width = c.getWidth();
             height = c.getHeight();
-            cwidth = width / ac.getWidth();
-            cheight = height / (ac.getHeight()+2);
-            p.setTextSize(cheight);
+            float sizemax=Math.min(width / ac.getWidth() * 1.71f, height / (ac.getHeight()+2) * 0.835f);
+            cheight = sizemax*1.2f;
+            p.setTextSize(sizemax);
             drawBoard();
-            activity.surfaceHolder.unlockCanvasAndPost(c);
+            sh.unlockCanvasAndPost(c);
+        }
+        else{
+            Log.w("DrawBoard","Unable to draw on gameSV");
         }
     }
 
@@ -185,24 +214,7 @@ public class DrawBoard{
                 break;
         }
 
-        for(int x=0;x<acwidth;x++){
-            for(int y=0;y<acheight;y++){
-                switch(ac.get(x,y)){
-                    case '|':
-                        dest.set(x * cwidth, (y+2) * cheight, (x+1) * cwidth, (y+3) * cheight);
-                        c.drawBitmap(vline,null,dest,null);
-                        break;
-                    case '_':
-                        dest.set(x * cwidth, (y+2) * cheight, (x+1) * cwidth, (y+3) * cheight);
-                        c.drawBitmap(hline,null,dest,null);
-                        break;
-                    case '\u03b4':
-                        dest.set(x * cwidth, (y+2) * cheight, (x+1) * cwidth, (y+3) * cheight);
-                        c.drawBitmap(apple,null,dest,null);
-                        break;
-                }
-            }
-        }
+        ac.draw(c,cheight*3,0,cheight,p);
     }
 
 }

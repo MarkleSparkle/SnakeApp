@@ -47,6 +47,22 @@ public class GameActivity extends AppCompatActivity {
 
         SurfaceView gameSV=(SurfaceView)findViewById(R.id.gameSV);
         surfaceHolder=gameSV.getHolder();
+        surfaceHolder.addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                if(game!=null)game.drawGame();
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+
+            }
+        });
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         dpi=metrics.densityDpi;

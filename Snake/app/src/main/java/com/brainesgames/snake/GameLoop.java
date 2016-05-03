@@ -54,10 +54,9 @@ public class GameLoop implements Runnable{
         long interval=getInitialInterval();
         highscore=activity.highscorePrefs.getInt("high" + modeStr(speed), 1);
         score=1;
-        drawBoard=new DrawBoard(activity,sc.canvas);
+        drawBoard=new DrawBoard(activity.surfaceHolder,sc.canvas);
+        drawBoard.setScoreText(score,highscore);
         mediaPlayer=null;
-
-        drawGame();
 
         boolean soundEnabled;
         synchronized (activity){
@@ -76,6 +75,8 @@ public class GameLoop implements Runnable{
             mediaPlayer.start();
         }
 
+        drawGame();
+
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -89,7 +90,7 @@ public class GameLoop implements Runnable{
                 board.move();
                 score=board.snake.size();
                 if(score>highscore)highscore=score;
-
+                drawBoard.setScoreText(score,highscore);
                 if(board.done){
                     drawBoard.setLine2(DrawBoard.OVER_LINE2);
                     drawGame();
