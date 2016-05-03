@@ -1,7 +1,7 @@
 <resources>
     <dimen name="title_size">120sp</dimen>
     <dimen name="button_size">50sp</dimen>
-    <dimen name="text_size">38sp</dimen>
+    <dimen name="text_size">34sp</dimen>
     <dimen name="title_margin">10dp</dimen>
     <dimen name="art_size">16sp</dimen>
     <dimen name="radio_text_size">18sp</dimen>
