@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         display.getSize(size);
         int screenWidth = size.x;
         float maxFontSize=(float)screenWidth / ac.getWidth()*1.57f;
+        title.setTypeface(Typeface.MONOSPACE);
         title.setTextSize(TypedValue.COMPLEX_UNIT_PX, maxFontSize);
 
 

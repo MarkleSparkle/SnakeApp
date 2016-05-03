@@ -33,7 +33,7 @@ public class GameLoop implements Runnable{
     private SnakeBoard board;
     private SnakeCanvas sc;
     private AsciiCanvas canvas;
-    private DrawBoard uiDraw;
+    private DrawBoard drawBoard;
     private int highscore,score,speed;
     private MediaPlayer mediaPlayer;
 
@@ -54,22 +54,9 @@ public class GameLoop implements Runnable{
         long interval=getInitialInterval();
         highscore=activity.highscorePrefs.getInt("high" + modeStr(speed), 1);
         score=1;
-        uiDraw=new DrawBoard(activity,"");
+        drawBoard=new DrawBoard(activity.surfaceHolder,sc.canvas);
+        drawBoard.setScoreText(score,highscore);
         mediaPlayer=null;
-
-        final float limitSize=Math.min((float)activity.screenWidth/canvas.getWidth()*1.6f, (float) activity.screenHeight / canvas.getHeight() * 0.8f);
-
-        Log.d("GameLoop","lswid: "+(float)activity.screenWidth/canvas.getWidth()*1.6f);
-        Log.d("GameLoop", "lshei: " + (float) activity.screenHeight / canvas.getHeight() * 0.8f);
-        Log.d("GameLoop", "ls" + limitSize);
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                activity.graphicsField.setTextSize(TypedValue.COMPLEX_UNIT_PX, limitSize);
-            }
-        });
-
-        drawGame("SCORE: 1   HIGHSCORE: " + highscore,"");
 
         boolean soundEnabled;
         synchronized (activity){
@@ -88,6 +75,8 @@ public class GameLoop implements Runnable{
             mediaPlayer.start();
         }
 
+        drawGame();
+
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -101,12 +90,13 @@ public class GameLoop implements Runnable{
                 board.move();
                 score=board.snake.size();
                 if(score>highscore)highscore=score;
-
+                drawBoard.setScoreText(score,highscore);
                 if(board.done){
-                    drawGame("GAME OVER.  TAP TO TRY AGAIN","FINAL SCORE: " + score + "   HIGHSCORE: " + highscore);
+                    drawBoard.setLine2(DrawBoard.OVER_LINE2);
+                    drawGame();
                 }
                 else{
-                    drawGame("SCORE: " + score + "   HIGHSCORE: " + highscore,"");
+                    drawGame();
 
                     if (score > scoreBefore) {
                         if (speed == SPEED_RANDOM) {
@@ -131,6 +121,7 @@ public class GameLoop implements Runnable{
                     Log.d("GameLoop", "Thread interrupted");
                 }
                 if(mediaPlayer!=null)mediaPlayer.start();
+                drawBoard.setLine2(DrawBoard.NO_LINE2);
             }
             try {
                 Thread.sleep(interval);
@@ -148,24 +139,15 @@ public class GameLoop implements Runnable{
         Log.d("GameLoop", "Ending Game Loop");
     }
 
-    void drawGame(String line0,String line1){
+    void drawGame(){
         //clear the first two line of canvas (rest will be overridden by sc)
-        canvas.drawHLine(0, 0, canvas.getWidth(), ' ');
-        canvas.drawHLine(0, 1, canvas.getWidth(), ' ');
         sc.draw();
-        canvas.drawString(0, 0, line0);
-        canvas.drawString(0, 1, line1);
-        canvas.copy(sc.canvas, 0, 2, true);
-
-        uiDraw.setText(canvas.toString());
-        activity.runOnUiThread(uiDraw);
+        drawBoard.draw();
     }
 
     void drawPause(){
-        canvas.drawHLine(0, 1, canvas.getWidth(), ' ');
-        canvas.drawString(0, 1, "PAUSED. TAP TO RESTART");
-        uiDraw.setText(canvas.toString());
-        activity.runOnUiThread(uiDraw);
+        drawBoard.setLine2(DrawBoard.PAUSE_LINE2);
+        drawBoard.draw();
     }
 
     static String modeStr(int speed){
