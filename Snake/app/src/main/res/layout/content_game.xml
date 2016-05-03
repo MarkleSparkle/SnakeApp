@@ -13,15 +13,9 @@
     tools:showIn="@layout/activity_game"
     android:background="#000000">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/graphicsField"
-        android:textColor="#00aa00"
-        android:typeface="monospace"
-        android:textStyle="bold"
-        android:textSize="@dimen/art_size"
-        android:text="_____ \\ _  __/_  __ `/__  ___/_  __/"
-        android:gravity="center" />
-
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gameSV"
+        android:layout_margin="@dimen/game_margin" />
 </RelativeLayout>

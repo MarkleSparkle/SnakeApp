@@ -18,8 +18,9 @@ public class SnakeCanvas {
 		canvas.drawVLine(board.width*2, 1, board.height);
 		
 		//draw snakes
-		for(OrderedPair op:board.snake)drawCell(op);
+		for(int i=0;i<board.snake.size();i++)drawCell(board.snake.get(i));
 		//draw food
+		//In the future, do a test to make sure δ is supported by typeface: Paint.hasGlyph
 		canvas.set(board.food.getX()*2+1,board.food.getY()+1,'δ');
 	}
 	
