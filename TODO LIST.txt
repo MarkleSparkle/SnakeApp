@@ -9,11 +9,7 @@ TODO LIST:
 		2. Deturmine Achievement Milestones
 		3. Deturmine Colours for each achievement (or randomly selected)
 	}
-	3. Snake Spelled Title
-	4. Double tap pause
 	5. Save your current score and the position of the snake when you back out of the game until you start a new game. 
-	6. Main to options to play.
-	7. move instructions and credits to own activities
 	8. Half the chance of apples spawning on the sides
 }
 TO FIX LIST:
@@ -35,11 +31,6 @@ IDEAS LIST:
 		3. Time Based (60 seconds to get as many apples as possible)
 		4. Mice (moving food)
 		5. Multiple apples on the screen at once
-	}
-	4. Tip of the Day{
-		1. "Try flipping your device horizontally while playing"
-		2. Random weird speaches: "Hehehe", "ohai \o/", ascii emojis
-		3. "Plan in advance, drag your finger without releasing"
 	}
 	
 }
