@@ -32,7 +32,6 @@ public class GameLoop implements Runnable{
 
     private SnakeBoard board;
     private SnakeCanvas sc;
-    private AsciiCanvas canvas;
     private DrawBoard drawBoard;
     private int highscore,score,speed;
     private MediaPlayer mediaPlayer;
@@ -49,7 +48,6 @@ public class GameLoop implements Runnable{
 
         board=new SnakeBoard();
         sc=new SnakeCanvas(board);
-        canvas=new AsciiCanvas(sc.canvas.getWidth(),sc.canvas.getHeight()+2);
         speed=getSpeed();
         long interval=getInitialInterval();
         highscore=activity.highscorePrefs.getInt("high" + modeStr(speed), 1);
@@ -230,6 +228,20 @@ public class GameLoop implements Runnable{
             super.finalize();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
+        }
+    }
+
+    void saveGame(){
+        synchronized (activity){
+            activity.saveEdit.putBoolean("gameSaved", true);
+            activity.saveEdit.putInt("foodx", board.food.getX());
+            activity.saveEdit.putInt("foody", board.food.getY());
+            activity.saveEdit.putInt("snakesize", board.snake.size());
+            for(int i=0;i<board.snake.size();i++){
+                activity.saveEdit.putInt("snakex"+i, board.snake.get(i).getX());
+                activity.saveEdit.putInt("snakey"+i, board.snake.get(i).getY());
+            }
+            activity.saveEdit.commit();
         }
     }
 }

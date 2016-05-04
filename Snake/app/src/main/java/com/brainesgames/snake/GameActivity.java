@@ -21,8 +21,8 @@ public class GameActivity extends AppCompatActivity {
     GameLoop game;
     long lastTap;
     float startX, startY;
-    SharedPreferences highscorePrefs,optionPrefs,soundPrefs;
-    SharedPreferences.Editor highscoreEdit,optionEdit;
+    SharedPreferences highscorePrefs,optionPrefs,soundPrefs,savePrefs;
+    SharedPreferences.Editor highscoreEdit,optionEdit,saveEdit;
     int dpi;
     int screenWidth,screenHeight;
 
@@ -39,6 +39,8 @@ public class GameActivity extends AppCompatActivity {
         optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
         optionEdit=optionPrefs.edit();
         soundPrefs=getApplication().getSharedPreferences("sound", MODE_PRIVATE);
+        savePrefs=getApplication().getSharedPreferences("save", MODE_PRIVATE);
+        saveEdit=savePrefs.edit();
 
         startX=startY=0;
         gameOn=false;
