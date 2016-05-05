@@ -50,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
             "Guess and check is the best method",
             "My gosh, my accelerometer's been stolen!",
             "Why are firetrucks red?",
-            "How much wood a woodchuck chuck?",
+            "How much wood would a woodchuck chuck?",
             "Because the molecules in the fire truck scatter red light more than blue.",
             "Perforated.",
             "Han shot first.",
             "I trust you will do an okay job.",
             "Join the HeckDivers!",
             "I follow the teachings of Marx in my facial hair.",
-            "Jason Bourne, Jarl of somethin'",
+            "CLICK HERE FOR A FREE TROJAN",
             "What IF you were here?",
             "If this statement is true, the previous statement is false.",
             "That's so contrapuntal.",
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             "#FF1919",
             "#D875FF",
             "#00AA00",
-            "FFAB24",
+            "#FFAB24",
             "#8100EB"
     };
 
