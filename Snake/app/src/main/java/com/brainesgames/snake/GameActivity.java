@@ -11,18 +11,19 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.TextView;
-import com.brainesgames.ascii.AsciiCanvas;
-import java.io.InputStream;
+import static com.brainesgames.snake.GameLoop.GAME_ON;
+import static com.brainesgames.snake.GameLoop.GAME_READY;
+import static com.brainesgames.snake.GameLoop.GAME_OVER;
+import static com.brainesgames.snake.GameLoop.GAME_PAUSED;
 
 public class GameActivity extends AppCompatActivity {
-    boolean gameOn;
-    boolean gamePaused;
+    int gameState;
     GameLoop game;
+    Thread gameThread;
     long lastTap;
     float startX, startY;
-    SharedPreferences highscorePrefs,optionPrefs,soundPrefs,savePrefs;
-    SharedPreferences.Editor highscoreEdit,optionEdit,saveEdit;
+    SharedPreferences highscorePrefs,optionPrefs,soundPrefs;
+    SharedPreferences.Editor highscoreEdit,optionEdit;
     int dpi;
     int screenWidth,screenHeight;
 
@@ -38,13 +39,9 @@ public class GameActivity extends AppCompatActivity {
         highscoreEdit=highscorePrefs.edit();
         optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
         optionEdit=optionPrefs.edit();
-        soundPrefs=getApplication().getSharedPreferences("sound", MODE_PRIVATE);
-        savePrefs=getApplication().getSharedPreferences("save", MODE_PRIVATE);
-        saveEdit=savePrefs.edit();
+        soundPrefs = getApplication().getSharedPreferences("sound", MODE_PRIVATE);
 
         startX=startY=0;
-        gameOn=false;
-        gamePaused=false;
         lastTap=0L;
 
         SurfaceView gameSV=(SurfaceView)findViewById(R.id.gameSV);
@@ -101,29 +98,25 @@ public class GameActivity extends AppCompatActivity {
                         float dy = endY - startY;
 
                         if (dx * dx + dy * dy < (60 * ((float) dpi / 320) * ((float) dpi / 320))) {//if there's a tap withing a 7x7 pixel area (adjusted for dpi), a pause is registered
-                            if (!gameOn) {//starts game on a tap
-                                startGame();
-                            } else if (!gamePaused) {
+                            if (gameState == GAME_OVER) {//starts game on a tap
+                                game.setState(GAME_READY);
+                            } else if (gameState == GAME_ON) {
                                 long thisTap = System.currentTimeMillis();
                                 //pause if double tap
                                 if (thisTap - lastTap < 400) {
-                                    gamePaused = true;
-                                    game.setPause(true);
-                                    //canvas.drawString(0, 1, "PAUSED. TAP TO UNPAUSE");
-                                    //graphicsField.setText(canvas.toString());
+                                    game.setState(GAME_PAUSED);
                                 }
                                 //save the time of this tap
                                 lastTap = thisTap;
                             } else {
-                                gamePaused = false;
-                                game.setPause(false);
+                                game.setState(GAME_ON);
                             }
 
                         }
                         //Log.d("GameActivity","dx: "+dx);
                         //Log.d("GameActivity","dx: "+dx);
                         else {//otherwise a swipe is registered and continues the game
-                            if(gameOn) {
+                            if (gameState == GAME_ON || gameState == GAME_READY) {
                                 if (Math.abs(dy) > Math.abs(dx)) {
                                     if (dy >= 0) {
                                         direction = 2;
@@ -139,6 +132,7 @@ public class GameActivity extends AppCompatActivity {
                                 }
 
                                 game.setDirection(direction);
+                                if (gameState == GAME_READY) game.setState(GAME_ON);
                             }
                         }
                         break;
@@ -150,28 +144,28 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        //start the game
-        startGame();
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        if(gameOn)game.setPause(true);
+        if(gameThread!=null){
+            gameThread.interrupt();
+        }
     }
 
-    void startGame(){
-        gameOn=true;
-        gamePaused=false;
+    @Override
+    protected void onResume(){
+        super.onResume();
+        //start the game loop
+        startGameLoop();
+    }
+
+    void startGameLoop(){
         //create new gameLoop
         game=new GameLoop(this);
         //start GameLoop thread
-        Thread gameThread=new Thread(game,"GameThread");
-        gameThread.setDaemon(true);
+        gameThread=new Thread(game,"GameThread");
         gameThread.start();
-    }
-
-    synchronized void gameEnd(){
-        gameOn=false;
     }
 }

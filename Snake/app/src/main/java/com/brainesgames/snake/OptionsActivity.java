@@ -1,5 +1,6 @@
 package com.brainesgames.snake;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -101,6 +103,8 @@ public class OptionsActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences save=getApplication().getSharedPreferences("save", Activity.MODE_PRIVATE);
+        if(save.getBoolean("gameSaved",false))startActivity(new Intent(this,GameActivity.class));
     }
     public void startGame(View v){
         startActivity(new Intent(this,GameActivity.class));
