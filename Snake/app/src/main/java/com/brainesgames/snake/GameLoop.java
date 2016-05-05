@@ -69,6 +69,7 @@ public class GameLoop implements Runnable{
             }
             else Log.d("Game Loop","Loading Successful");
             speed=savePrefs.getInt("speed",SPEED_NORMAL);
+            direction=savePrefs.getInt("direction",3);
             musicStart=savePrefs.getInt("musicStart",0);
         }
         else {
@@ -309,6 +310,7 @@ public class GameLoop implements Runnable{
             Log.d("GameLoop","starting save");
             saveEdit.putBoolean("gameSaved", true);
             saveEdit.putInt("speed",speed);
+            saveEdit.putInt("direction",direction);
             saveEdit.putInt("foodx", board.food.getX());
             saveEdit.putInt("foody", board.food.getY());
             saveEdit.putInt("snakesize", board.snake.size());

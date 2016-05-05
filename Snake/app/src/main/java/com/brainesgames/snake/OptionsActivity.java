@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
@@ -19,6 +20,7 @@ public class OptionsActivity extends AppCompatActivity {
     SharedPreferences.Editor optionEdit;
     RadioGroup speedGroup;
     CheckBox soundEnabled;
+    SharedPreferences save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,16 +100,30 @@ public class OptionsActivity extends AppCompatActivity {
         soundEnabled.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                optionEdit.putBoolean("soundEnabled",isChecked);
+                optionEdit.putBoolean("soundEnabled", isChecked);
                 optionEdit.commit();
             }
         });
 
-        SharedPreferences save=getApplication().getSharedPreferences("save", Activity.MODE_PRIVATE);
+        save=getApplication().getSharedPreferences("save", Activity.MODE_PRIVATE);
         if(save.getBoolean("gameSaved",false))startActivity(new Intent(this,GameActivity.class));
     }
     public void startGame(View v){
+        if(v.getId()==R.id.startButton){
+            SharedPreferences.Editor saveEdit=save.edit();
+            saveEdit.putBoolean("gameSaved", false);
+        }
         startActivity(new Intent(this,GameActivity.class));
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(save.getBoolean("gameSaved",false)){
+            findViewById(R.id.resumeButton).setVisibility(View.VISIBLE);
+        }
+        else{
+            findViewById(R.id.resumeButton).setVisibility(View.INVISIBLE);
+        }
+    }
 }
