@@ -9,12 +9,12 @@ TODO LIST:
 		2. Deturmine Achievement Milestones
 		3. Deturmine Colours for each achievement (or randomly selected)
 	}
-	5. Save your current score and the position of the snake when you back out of the game until you start a new game. 
-	8. Half the chance of apples spawning on the sides
+	3. Save your current score and the position of the snake when you back out of the game until you start a new game. 
+	4. Half the chance of apples spawning on the sides
+	5. Add local leaderboard
 }
 TO FIX LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. implement score and highscore numbers on DrawGame with surface view
 IDEAS LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
