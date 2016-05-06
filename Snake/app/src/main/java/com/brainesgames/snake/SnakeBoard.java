@@ -24,7 +24,7 @@ public class SnakeBoard {
 		generateFood();
 	}
 	
-	boolean in(OrderedPair op,ArrayList<OrderedPair> snake){
+	boolean inSnake(OrderedPair op){
 		for(int i=0;i<snake.size();i++){
 			if(op.equals(snake.get(i)))return true;
 		}
@@ -40,7 +40,7 @@ public class SnakeBoard {
         if(snake.size()<width*height) {
             do {
                 food = new OrderedPair(r.nextInt(width), r.nextInt(height));
-            } while (in(food, snake));
+            } while (inSnake(food));
         }
 	}
 	
@@ -63,7 +63,7 @@ public class SnakeBoard {
 					next=new OrderedPair(head.getX(),head.getY()-1);
 			}
 			
-			if(!inBounds(next) || in(next,snake)){
+			if(!inBounds(next) || inSnake(next)){
 				done=true;
 			}
 			else if(next.equals(food)){

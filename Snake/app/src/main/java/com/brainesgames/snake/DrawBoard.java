@@ -136,10 +136,15 @@ public class DrawBoard{
 
     void setScoreText(int score,int highscore){
         //set score text
-        if(score<10)line1[8]=(char)('0'+score);
+        if(score<10){
+            line1[8]=(char)('0'+score);
+            line1[9]=' ';
+            line1[10]=' ';
+        }
         else if(score<100){
             line1[8]=(char)('0'+score/10);
             line1[9]=(char)('0'+score%10);
+            line1[10]=' ';
         }
         else{
             line1[8]=(char)('0'+score/100);
@@ -147,10 +152,15 @@ public class DrawBoard{
             line1[10]=(char)('0'+score%10);
         }
         //set highscore text
-        if(highscore<10)line1[25]=(char)('0'+highscore);
+        if(highscore<10){
+            line1[25]=(char)('0'+highscore);
+            line1[26]=' ';
+            line1[27]=' ';
+        }
         else if(highscore<100){
             line1[25]=(char)('0'+highscore/10);
             line1[26]=(char)('0'+highscore%10);
+            line1[27]=' ';
         }
         else{
             line1[25]=(char)('0'+highscore/100);

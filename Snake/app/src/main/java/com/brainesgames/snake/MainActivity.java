@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int index = (int) (41*(Math.random())+5);
-        int colourIndex = (int) (7*(Math.random()));
+        int index = (int) (messages.length*Math.random());
+        int colourIndex = (int) (colours.length*Math.random());
         int rotationValue = (int) (25*Math.random());
         double negativeChance = (10*Math.random());
         if(negativeChance < 5){
