@@ -89,7 +89,7 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dynamic (Speed increases with every five apples)"
+                android:text="Dynamic (Speed increases with each apple)"
                 android:textSize="@dimen/radio_text_size"
                 android:id="@+id/dynamicButton"
                 android:textColor="#00aa00" />
@@ -97,7 +97,7 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Random (Speed changes randomly with every apple)"
+                android:text="Random (Speed changes randomly with each apple)"
                 android:textSize="@dimen/radio_text_size"
                 android:id="@+id/randomButton"
                 android:textColor="#00aa00" />

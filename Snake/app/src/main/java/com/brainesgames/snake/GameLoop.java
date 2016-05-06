@@ -40,6 +40,7 @@ public class GameLoop implements Runnable{
     private SnakeBoard board;
     private SnakeCanvas sc;
     private DrawBoard drawBoard;
+    private long interval;
     private int highscore,score,speed;
     private MediaPlayer mediaPlayer;
 
@@ -66,15 +67,22 @@ public class GameLoop implements Runnable{
             if(board==null){
                 Log.e("GameLoop","Error loading saved game. Creating new Game");
                 board = new SnakeBoard();
+                speed = getSpeed();
+                interval=getInitialInterval();
             }
-            else Log.d("Game Loop","Loading Successful");
-            speed=savePrefs.getInt("speed",SPEED_NORMAL);
+            else{
+                Log.d("Game Loop","Loading Successful");
+                speed=savePrefs.getInt("speed",SPEED_NORMAL);
+                interval=savePrefs.getLong("interval",INTERVAL_NORMAL);
+            }
+
             direction=savePrefs.getInt("direction",3);
             musicStart=savePrefs.getInt("musicStart",0);
         }
         else {
             board = new SnakeBoard();
             speed = getSpeed();
+            interval=getInitialInterval();
         }
         //reset gameSaved to false
         saveEdit.putBoolean("gameSaved", false);
@@ -104,12 +112,14 @@ public class GameLoop implements Runnable{
         running=true;
         boolean first=true;
         while(running) {
-            long interval=getInitialInterval();
             score=1;
-            if(!first)board.newBoard();
+            if(!first){
+                board.newBoard();
+                interval=getInitialInterval();
+                musicStart=0;
+            }
             else{
                 first=false;
-                musicStart=0;
             }
             drawBoard.setLine2(DrawBoard.NO_LINE2);
             drawBoard.setScoreText(score,highscore);
@@ -151,9 +161,8 @@ public class GameLoop implements Runnable{
                             //set and apply new interval
                             interval = SnakeBoard.r.nextInt(125) + 50;
                         } else if (speed == SPEED_DYNAMIC) {
-                            if (score % 5 == 0 && interval > 35) {
-                                interval -= 10;
-                            }
+                            interval=INTERVAL_NORMAL-2*score;
+                            if(interval<30)interval=30;
                         }
                     }
                 }
@@ -307,10 +316,12 @@ public class GameLoop implements Runnable{
 
     void saveGame(){
         synchronized (activity){
-            Log.d("GameLoop","starting save");
+            Log.d("GameLoop", "starting save");
+            if(mediaPlayer!=null)saveEdit.putInt("musicStart",mediaPlayer.getCurrentPosition());
             saveEdit.putBoolean("gameSaved", true);
             saveEdit.putInt("speed",speed);
             saveEdit.putInt("direction",direction);
+            saveEdit.putLong("interval",interval);
             saveEdit.putInt("foodx", board.food.getX());
             saveEdit.putInt("foody", board.food.getY());
             saveEdit.putInt("snakesize", board.snake.size());
