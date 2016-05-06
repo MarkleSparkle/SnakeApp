@@ -13,16 +13,25 @@ public class SnakeCanvas {
 		canvas.clear();
 		//draw edges (top, bottom, left ,right)
 		canvas.drawHLine(1, 0, board.width*2-1);
-		canvas.drawHLine(1, board.height, board.width*2-1);
+		canvas.drawHLine(1, board.height, board.width * 2 - 1);
 		canvas.drawVLine(0, 1, board.height);
-		canvas.drawVLine(board.width*2, 1, board.height);
+		canvas.drawVLine(board.width * 2, 1, board.height);
 		
-		//draw snakes
-		for(int i=0;i<board.snake.size();i++)drawCell(board.snake.get(i));
+		//draw snake
+		for(int i=1;i<board.snake.size();i++)drawCell(board.snake.get(i));
+        drawHead(board.snake.get(0));
 		//draw food
-		//In the future, do a test to make sure δ is supported by typeface: Paint.hasGlyph
 		canvas.set(board.food.getX()*2+1,board.food.getY()+1,'δ');
 	}
+
+	void drawHead(OrderedPair op){
+        int x=op.getX()*2;
+        int y=op.getY();
+        canvas.set(x,y+1, '|');
+        canvas.set(x+2,y+1, '|');
+        canvas.set(x+1,y, '_');
+        canvas.set(x+1,y+1, '*');
+    }
 	
 	void drawCell(OrderedPair op){
 		int x=op.getX()*2;

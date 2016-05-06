@@ -24,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
     float startX, startY, tapr2;
     SharedPreferences highscorePrefs,optionPrefs,soundPrefs;
     SharedPreferences.Editor highscoreEdit,optionEdit;
-    int dpi;
+    float dpi;
     int screenWidth,screenHeight;
 
     SurfaceHolder surfaceHolder;
@@ -54,7 +54,8 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
+                Log.d("GameActivity","sw: "+width);
+                Log.d("GameActivity","sh: "+height);
             }
 
             @Override
@@ -64,18 +65,11 @@ public class GameActivity extends AppCompatActivity {
         });
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
-        dpi=metrics.densityDpi;
-        tapr2= 500 * (float) dpi / 320 * (float) dpi / 320;
-        Log.d("GameActivity","dpi: "+dpi);
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        screenWidth = size.x;
-        screenHeight = size.y;
-        Log.d("GameActivity","sw"+screenWidth);
-        Log.d("GameActivity", "sh" + screenHeight);
-
+        dpi=(metrics.xdpi+metrics.ydpi)/2;
+        tapr2= 1000 * dpi / 320 * dpi / 320;
+        Log.d("GameActivity","dpi: "+metrics.densityDpi);
+        Log.d("GameActivity","xdpi: "+metrics.xdpi);
+        Log.d("GameActivity","ydpi: "+metrics.ydpi);
         gameSV.setOnTouchListener(new View.OnTouchListener() {
 
             @Override

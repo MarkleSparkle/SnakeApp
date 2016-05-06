@@ -106,7 +106,6 @@ public class OptionsActivity extends AppCompatActivity {
         });
 
         save=getApplication().getSharedPreferences("save", Activity.MODE_PRIVATE);
-        if(save.getBoolean("gameSaved",false))startActivity(new Intent(this,GameActivity.class));
     }
     public void startGame(View v){
         if(v.getId()==R.id.startButton){

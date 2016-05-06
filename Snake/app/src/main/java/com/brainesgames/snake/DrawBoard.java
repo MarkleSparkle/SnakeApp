@@ -201,7 +201,7 @@ public class DrawBoard{
         if(c!=null) {
             width = c.getWidth();
             height = c.getHeight();
-            float sizemax=Math.min(width / ac.getWidth() * 1.67f, height / (ac.getHeight()+2) * 0.835f);
+            float sizemax=Math.min(width / ac.getWidth() * 1.65f, height / (ac.getHeight()+2) * 0.835f);
             cheight = sizemax/0.835f;
             p.setTextSize(sizemax);
             drawBoard();

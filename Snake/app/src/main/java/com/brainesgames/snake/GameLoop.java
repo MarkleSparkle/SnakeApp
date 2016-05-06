@@ -193,9 +193,10 @@ public class GameLoop implements Runnable{
     }
 
     void drawGame(){
-        //clear the first two line of canvas (rest will be overridden by sc)
-        sc.draw();
-        drawBoard.draw();
+        if(drawBoard!=null){
+            sc.draw();
+            drawBoard.draw();
+        }
     }
 
     void drawPause(){
@@ -330,7 +331,7 @@ public class GameLoop implements Runnable{
                 saveEdit.putInt("snakey"+i, board.snake.get(i).getY());
             }
             saveEdit.commit();
-            Log.d("GameLoop",savePrefs.getAll().toString());
+            //Log.d("GameLoop",savePrefs.getAll().toString());
             Log.d("GameLoop", "ending save");
         }
     }
@@ -344,7 +345,7 @@ public class GameLoop implements Runnable{
             if(!b.inSnake(op))b.snake.add(op);
             else return null;
         }
-        Log.d("GameLoop",b.snake.toString());
+        //Log.d("GameLoop",b.snake.toString());
         return b;
     }
 }
