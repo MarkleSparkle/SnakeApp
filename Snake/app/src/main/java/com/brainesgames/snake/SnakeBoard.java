@@ -40,6 +40,10 @@ public class SnakeBoard {
         if(snake.size()<width*height) {
             do {
                 food = new OrderedPair(r.nextInt(width), r.nextInt(height));
+                //50% chance of a reroll if food on edge or corner
+                if(food.getX()==0 || food.getY()==0 || food.getX()==width-1 || food.getY()==height-1){
+                    if(r.nextInt(2)==0)generateFood();
+                }
             } while (inSnake(food));
         }
 	}
