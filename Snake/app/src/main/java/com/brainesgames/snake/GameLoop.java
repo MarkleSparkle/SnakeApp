@@ -138,7 +138,7 @@ public class GameLoop implements Runnable{
                 mediaPlayer.start();
             }
 
-            setState(GAME_ON);
+            if(gameState!=GAME_ON)setState(GAME_ON);
 
 
             while (gameState==GAME_ON && running) {

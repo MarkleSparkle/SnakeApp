@@ -21,7 +21,7 @@ public class GameActivity extends AppCompatActivity {
     GameLoop game;
     Thread gameThread;
     long lastTap;
-    float startX, startY;
+    float startX, startY, tapr2;
     SharedPreferences highscorePrefs,optionPrefs,soundPrefs;
     SharedPreferences.Editor highscoreEdit,optionEdit;
     int dpi;
@@ -65,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
 
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         dpi=metrics.densityDpi;
+        tapr2= 500 * (float) dpi / 320 * (float) dpi / 320;
         Log.d("GameActivity","dpi: "+dpi);
 
         Display display = getWindowManager().getDefaultDisplay();
@@ -96,14 +97,20 @@ public class GameActivity extends AppCompatActivity {
                         float endY = event.getY();
                         float dx = endX - startX;
                         float dy = endY - startY;
+                        float r2=dx * dx + dy * dy;
 
-                        if (dx * dx + dy * dy < (60 * ((float) dpi / 320) * ((float) dpi / 320))) {//if there's a tap withing a 7x7 pixel area (adjusted for dpi), a pause is registered
+                        //Log.d("GameActivity","r^2: "+r2);
+                        //Log.d("GameActivity","tapr^2: "+tapr2);
+
+                        if (r2 < tapr2) {//if there's a tap withing a 7x7 pixel area (adjusted for dpi), a pause is registered
+                            //Log.d("GameActivity","TAP");
                             if (gameState == GAME_OVER) {//starts game on a tap
                                 game.setState(GAME_READY);
                             } else if (gameState == GAME_ON) {
                                 long thisTap = System.currentTimeMillis();
+                                //Log.d("GameActivity","tapgap: "+(thisTap-lastTap));
                                 //pause if double tap
-                                if (thisTap - lastTap < 400) {
+                                if (thisTap - lastTap < 500) {
                                     game.setState(GAME_PAUSED);
                                 }
                                 //save the time of this tap
@@ -113,9 +120,8 @@ public class GameActivity extends AppCompatActivity {
                             }
 
                         }
-                        //Log.d("GameActivity","dx: "+dx);
-                        //Log.d("GameActivity","dx: "+dx);
                         else {//otherwise a swipe is registered and continues the game
+                            //Log.d("GameActivity","SWIPE");
                             if (gameState == GAME_ON || gameState == GAME_READY) {
                                 if (Math.abs(dy) > Math.abs(dx)) {
                                     if (dy >= 0) {
