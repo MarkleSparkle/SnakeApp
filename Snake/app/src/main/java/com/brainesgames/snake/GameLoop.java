@@ -96,6 +96,8 @@ public class GameLoop implements Runnable{
         drawBoard = new DrawBoard(activity.surfaceHolder, sc.canvas);
         mediaPlayer = null;
 
+        Leaderboard leaderboard=new Leaderboard(activity.getApplication().getSharedPreferences("leaderboard",Activity.MODE_PRIVATE));
+
         boolean soundEnabled;
         soundEnabled=optionPrefs.getBoolean("soundEnabled",true);
         if(soundEnabled)mediaPlayer=MediaPlayer.create(activity,R.raw.snaketheme);
@@ -129,6 +131,7 @@ public class GameLoop implements Runnable{
             try {
                 synchronized (this){
                     wait(1000);
+                    if(gameState!=GAME_ON)setState(GAME_ON);
                 }
             } catch (InterruptedException e) {
                 Log.d("GameLoop","Thread interrupted: terminating");
@@ -139,9 +142,6 @@ public class GameLoop implements Runnable{
                 mediaPlayer.seekTo(musicStart);
                 mediaPlayer.start();
             }
-
-            if(gameState!=GAME_ON)setState(GAME_ON);
-
 
             while (gameState==GAME_ON && running) {
                 long start=System.currentTimeMillis();
@@ -155,6 +155,7 @@ public class GameLoop implements Runnable{
                     drawBoard.setLine2(DrawBoard.OVER_LINE2);
                     drawGame();
                     setState(GAME_OVER);
+                    leaderboard.addScore(score,"noname",modeStr(speed));
                     pauseLoop();
                 } else {
                     drawGame();
@@ -244,7 +245,7 @@ public class GameLoop implements Runnable{
         }
     }
 
-    //finds modefrom optionPrefs
+    //finds speed from optionPrefs
     int getSpeed(){
         //find mode from optionPrefs
         String speedString;

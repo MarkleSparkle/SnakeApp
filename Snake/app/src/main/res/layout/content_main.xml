@@ -29,33 +29,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="START"
-        android:id="@+id/button"
+        android:id="@+id/startButton"
         android:textSize="@dimen/button_size"
         android:typeface="monospace"
         android:textStyle="bold"
         android:textColor="#00dd00"
         android:background="#666666"
-        android:onClick="options"
+        android:onClick="toOptions"
         android:padding="10dp"
         android:layout_marginBottom="21dp"
-        android:layout_above="@+id/button2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_above="@+id/howButton"
+        android:layout_centerHorizontal="true" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="HOW TO PLAY"
-        android:id="@+id/button2"
+        android:id="@+id/howButton"
         android:textSize="@dimen/button_size"
         android:textColor="#00cc00"
         android:background="#999999"
-        android:onClick="optionsMenu"
+        android:onClick="toHowto"
         android:padding="10dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="21dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/leaderButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Leaderboard"
+        android:textSize="@dimen/button_size"
+        android:textColor="#00cc00"
+        android:background="#999999"
+        android:id="@+id/leaderButton"
+        android:padding="10dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="75dp"
+        android:onClick="toLeaderboard"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -71,22 +84,4 @@
         android:layout_alignParentEnd="false"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Leaderboard"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/TextView01"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp"
-        android:textColor="#00dd00"
-        android:textSize="@dimen/text_size"/>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView3"
-        android:id="@+id/leaderTable"></TableLayout>
-
 </RelativeLayout>

@@ -118,59 +118,6 @@ public class MainActivity extends AppCompatActivity {
             title.setText(ac.toString());
         }
 
-        Leaderboard leaderboard = new Leaderboard(getApplication().getSharedPreferences("leaderboard", MODE_PRIVATE));
-        int numEntries=leaderboard.numEntries();
-        TableLayout leaderTable = (TableLayout) findViewById(R.id.leaderTable);
-        TableRow[] rows = new TableRow[numEntries+1];
-        for(int i=0;i<rows.length;i++){
-            rows[i]=new TableRow(this);
-            rows[i].setGravity(Gravity.CENTER_HORIZONTAL);
-            leaderTable.addView(rows[i]);
-        }
-
-        Log.d("MainActivity","numEntries: "+numEntries);
-        TextView[][] leaderTexts = new TextView[numEntries+1][4];
-        for (int i = 0; i < leaderTexts.length; i++) {
-            for (int j = 0; j < 4; j++) {
-                leaderTexts[i][j] = new TextView(this);
-                leaderTexts[i][j].setTextColor(0xff00ff00);
-                leaderTexts[i][j].setPadding(20, 20, 20, 20);
-                leaderTexts[i][j].setTextSize(TypedValue.COMPLEX_UNIT_PX, maxFontSize);
-                if (i == 0) {
-                    switch (j) {
-                        case 0:
-                            leaderTexts[i][j].setText("#");
-                            break;
-                        case 1:
-                            leaderTexts[i][j].setText("SCORE");
-                            break;
-                        case 2:
-                            leaderTexts[i][j].setText("NAME");
-                            break;
-                        case 3:
-                            leaderTexts[i][j].setText("MODE");
-                            break;
-                    }
-                } else {
-                    switch (j) {
-                        case 0:
-                            leaderTexts[i][j].setText(i+".");
-                            break;
-                        case 1:
-                            leaderTexts[i][j].setText(leaderboard.score(i));
-                            break;
-                        case 2:
-                            leaderTexts[i][j].setText(leaderboard.name(i));
-                            break;
-                        case 3:
-                            leaderTexts[i][j].setText(leaderboard.mode(i));
-                            break;
-                    }
-                }
-                rows[i].addView(leaderTexts[i][j]);
-            }
-        }
-
     }
 
 /*    @Override
@@ -195,13 +142,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }*/
     /** Called when the user clicks the OPTIONS button */
-    public void optionsMenu(View v) { startActivity(new Intent(this,HowToPlay.class)); }
+    public void toHowto(View v) { startActivity(new Intent(this,HowToPlay.class)); }
 
 
     /** Called when the user clicks the START button */
-    public void options(View v){
+    public void toOptions(View v){
         startActivity(new Intent(this,OptionsActivity.class));
     }
+
+    public void toLeaderboard(View v){startActivity(new Intent(this,LeaderboardActivity.class));}
 }
 
 

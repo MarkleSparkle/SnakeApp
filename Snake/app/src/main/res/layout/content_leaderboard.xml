@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.brainesgames.snake.LeaderboardActivity"
+    android:background="#333333">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Leaderboard"
+        android:id="@+id/leaderTitle"
+        android:layout_centerHorizontal="true"
+        android:textColor="#00dd00"
+        android:textSize="@dimen/smaller_title_size"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/leaderTitle"
+        android:id="@+id/leaderTable">
+        <TableRow android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="#"
+                android:textSize="@dimen/leader_text_size"
+                android:textColor="#00e100"
+                android:typeface="monospace"
+                android:paddingLeft="@dimen/leader_padding"
+                android:paddingRight="@dimen/leader_padding"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="SCORE "
+                android:textSize="@dimen/leader_text_size"
+                android:textColor="#00e100"
+                android:typeface="monospace"
+                android:paddingLeft="@dimen/leader_padding"
+                android:paddingRight="@dimen/leader_padding"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="NAME      "
+                android:textSize="@dimen/leader_text_size"
+                android:textColor="#00e100"
+                android:typeface="monospace"
+                android:paddingLeft="@dimen/leader_padding"
+                android:paddingRight="@dimen/leader_padding"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="MODE"
+                android:textSize="@dimen/leader_text_size"
+                android:textColor="#00e100"
+                android:typeface="monospace"
+                android:paddingLeft="@dimen/leader_padding"
+                android:paddingRight="@dimen/leader_padding"/>
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

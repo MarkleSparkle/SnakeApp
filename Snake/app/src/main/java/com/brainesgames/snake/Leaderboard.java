@@ -51,8 +51,8 @@ public class Leaderboard {
         return length;
     }
 
-    int score(int i){
-        return prefs.getInt("score"+i,-1);
+    String score(int i){
+        return Integer.toString(prefs.getInt("score" + i, -1));
     }
 
     String name(int i){
@@ -63,48 +63,4 @@ public class Leaderboard {
         return prefs.getString("mode"+i,"");
     }
 
-
-/*    String numberColumn(){
-        String nums="#\n";
-        for(int i=1;i<=length;i++){
-            if(prefs.getInt("score"+i,-1)==-1)break;
-            else{
-                nums+=i+".\n";
-            }
-        }
-        return nums;
-    }
-
-    String scoreColumn(){
-        String scores="SCORE\n_____\n";
-        for(int i=1;i<=length;i++){
-            if(prefs.getInt("score"+i,-1)==-1)break;
-            else{
-                scores+=prefs.getInt("score"+i,-1)+"\n";
-            }
-        }
-        return scores;
-    }
-
-    String nameColumn(){
-        String names="NAME\n_____\n";
-        for(int i=1;i<=length;i++){
-            if(prefs.getInt("score"+i,-1)==-1)break;
-            else{
-                names+=prefs.getString("name" + i, "")+"\n";
-            }
-        }
-        return names;
-    }
-
-    String modeColumn(){
-        String modes="MODE\n_____\n";
-        for(int i=1;i<=length;i++){
-            if(prefs.getInt("score"+i,-1)==-1)break;
-            else{
-                modes+=prefs.getString("mode"+i,"")+"\n";
-            }
-        }
-        return modes;
-    }*/
 }
