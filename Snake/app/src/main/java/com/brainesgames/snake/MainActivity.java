@@ -7,11 +7,15 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.brainesgames.ascii.AsciiCanvas;
@@ -81,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int index = (int) (messages.length*Math.random());
-        int colourIndex = (int) (colours.length*Math.random());
-        int rotationValue = (int) (25*Math.random());
-        double negativeChance = (10*Math.random());
-        if(negativeChance < 5){
-            rotationValue = -1*(rotationValue);
+        int index = (int) (messages.length * Math.random());
+        int colourIndex = (int) (colours.length * Math.random());
+        int rotationValue = (int) (15 * Math.random());
+        double negativeChance = (10 * Math.random());
+        if (negativeChance < 5) {
+            rotationValue = -1 * (rotationValue);
         }
 
 
@@ -96,24 +100,77 @@ public class MainActivity extends AppCompatActivity {
         t.setRotation(rotationValue);
 
         TextView title = (TextView) findViewById(R.id.title);
-        AsciiCanvas ac=AsciiCanvas.load(getResources().openRawResource(R.raw.titleart));
+        AsciiCanvas ac = AsciiCanvas.load(getResources().openRawResource(R.raw.titleart));
 
         //set title as big as possible
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int screenWidth = size.x;
-        float maxFontSize=(float)screenWidth / ac.getWidth()*1.57f;
+        float maxFontSize = (float) screenWidth / ac.getWidth() * 1.57f;
         title.setTextSize(TypedValue.COMPLEX_UNIT_PX, maxFontSize);
         //duplicate monospace setting because the xml doesn't work on some devices
         title.setTypeface(Typeface.MONOSPACE);
 
-        if(ac==null){
+        if (ac == null) {
             title.setText("Snake");
-        }
-        else{
+        } else {
             title.setText(ac.toString());
         }
+
+        Leaderboard leaderboard = new Leaderboard(getApplication().getSharedPreferences("leaderboard", MODE_PRIVATE));
+        int numEntries=leaderboard.numEntries();
+        TableLayout leaderTable = (TableLayout) findViewById(R.id.leaderTable);
+        TableRow[] rows = new TableRow[numEntries+1];
+        for(int i=0;i<rows.length;i++){
+            rows[i]=new TableRow(this);
+            rows[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            leaderTable.addView(rows[i]);
+        }
+
+        Log.d("MainActivity","numEntries: "+numEntries);
+        TextView[][] leaderTexts = new TextView[numEntries+1][4];
+        for (int i = 0; i < leaderTexts.length; i++) {
+            for (int j = 0; j < 4; j++) {
+                leaderTexts[i][j] = new TextView(this);
+                leaderTexts[i][j].setTextColor(0xff00ff00);
+                leaderTexts[i][j].setPadding(20, 20, 20, 20);
+                leaderTexts[i][j].setTextSize(TypedValue.COMPLEX_UNIT_PX, maxFontSize);
+                if (i == 0) {
+                    switch (j) {
+                        case 0:
+                            leaderTexts[i][j].setText("#");
+                            break;
+                        case 1:
+                            leaderTexts[i][j].setText("SCORE");
+                            break;
+                        case 2:
+                            leaderTexts[i][j].setText("NAME");
+                            break;
+                        case 3:
+                            leaderTexts[i][j].setText("MODE");
+                            break;
+                    }
+                } else {
+                    switch (j) {
+                        case 0:
+                            leaderTexts[i][j].setText(i+".");
+                            break;
+                        case 1:
+                            leaderTexts[i][j].setText(leaderboard.score(i));
+                            break;
+                        case 2:
+                            leaderTexts[i][j].setText(leaderboard.name(i));
+                            break;
+                        case 3:
+                            leaderTexts[i][j].setText(leaderboard.mode(i));
+                            break;
+                    }
+                }
+                rows[i].addView(leaderTexts[i][j]);
+            }
+        }
+
     }
 
 /*    @Override
