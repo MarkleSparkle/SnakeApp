@@ -42,7 +42,7 @@ public class DrawBoard{
         p.setColor(0xff00ff00);
         p.setTextAlign(Paint.Align.LEFT);
         p.setTypeface(Typeface.MONOSPACE);
-        //p.setTextScaleX(2);
+        p.setTextScaleX(1.7f);
         initBitmaps();
         initLines();
     }
@@ -201,8 +201,12 @@ public class DrawBoard{
         if(c!=null) {
             width = c.getWidth();
             height = c.getHeight();
-            float sizemax=Math.min(width / ac.getWidth() * 1.65f, height / (ac.getHeight()+2) * 0.835f);
-            cheight = sizemax/0.835f;
+            float sizemaxx=width / ac.getWidth() * 0.97f;
+            float sizemaxy=height / (ac.getHeight()+2) * 0.97f;
+            Log.d("GameLoop","sizemaxx: "+sizemaxx);
+            Log.d("GameLoop","sizemaxy: "+sizemaxy);
+            float sizemax=Math.min(sizemaxx,sizemaxy);
+            cheight = sizemax;
             p.setTextSize(sizemax);
             drawBoard();
             sh.unlockCanvasAndPost(c);
