@@ -44,9 +44,8 @@ public class GameLoop implements Runnable{
     private int highscore,score,speed;
     private MediaPlayer mediaPlayer;
 
-    SharedPreferences savePrefs;
-
-    SharedPreferences.Editor saveEdit;
+    SharedPreferences highscorePrefs,savePrefs,optionPrefs;
+    SharedPreferences.Editor highscoreEdit,optionEdit,saveEdit;
 
     GameLoop(GameActivity activity){
         this.activity=activity;
@@ -54,6 +53,10 @@ public class GameLoop implements Runnable{
         direction=3;
         savePrefs=activity.getApplication().getSharedPreferences("save", Activity.MODE_PRIVATE);
         saveEdit=savePrefs.edit();
+        highscorePrefs=activity.getApplication().getSharedPreferences("highscores", Activity.MODE_PRIVATE);
+        highscoreEdit=highscorePrefs.edit();
+        optionPrefs=activity.getApplication().getSharedPreferences("options", Activity.MODE_PRIVATE);
+        optionEdit=optionPrefs.edit();
     }
 
     @Override
@@ -89,14 +92,12 @@ public class GameLoop implements Runnable{
         saveEdit.commit();
 
         sc = new SnakeCanvas(board);
-        highscore = activity.highscorePrefs.getInt("high" + modeStr(speed), 1);
+        highscore = highscorePrefs.getInt("high" + modeStr(speed), 1);
         drawBoard = new DrawBoard(activity.surfaceHolder, sc.canvas);
         mediaPlayer = null;
 
         boolean soundEnabled;
-        synchronized (activity){
-            soundEnabled=activity.optionPrefs.getBoolean("soundEnabled",true);
-        }
+        soundEnabled=optionPrefs.getBoolean("soundEnabled",true);
         if(soundEnabled)mediaPlayer=MediaPlayer.create(activity,R.raw.snaketheme);
         if(mediaPlayer!=null){
             mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
@@ -122,7 +123,8 @@ public class GameLoop implements Runnable{
                 first=false;
             }
             drawBoard.setLine2(DrawBoard.NO_LINE2);
-            drawBoard.setScoreText(score,highscore);
+            drawBoard.setScoreText(score, highscore);
+            board.setDirection(direction);
             drawGame();
             try {
                 synchronized (this){
@@ -142,6 +144,7 @@ public class GameLoop implements Runnable{
 
 
             while (gameState==GAME_ON && running) {
+                long start=System.currentTimeMillis();
                 int scoreBefore = score;
                 board.setDirection(direction);
                 board.move();
@@ -167,8 +170,11 @@ public class GameLoop implements Runnable{
                     }
                 }
 
+                long time=(System.currentTimeMillis()-start);
+                //Log.d("GameLoop","time: "+time+"ms");
+
                 try {
-                    Thread.sleep(interval);
+                    Thread.sleep(time<interval?interval-time:1L);
                 } catch (InterruptedException e) {
                     Log.d("GameLoop", "Thread interrupted: terminating");
                     running=false;
@@ -242,9 +248,7 @@ public class GameLoop implements Runnable{
     int getSpeed(){
         //find mode from optionPrefs
         String speedString;
-        synchronized (activity) {
-            speedString= activity.optionPrefs.getString("speed", "n");
-        }
+        speedString= optionPrefs.getString("speed", "n");
         switch(speedString.charAt(0)){
             case 's':
                 return SPEED_SLOW;
@@ -275,10 +279,8 @@ public class GameLoop implements Runnable{
 
     //updates and returns the new highscore
     void updateHigh(){
-        synchronized(activity) {
-            activity.highscoreEdit.putInt("high" + modeStr(speed), highscore);
-            activity.highscoreEdit.commit();
-        }
+        highscoreEdit.putInt("high" + modeStr(speed), highscore);
+        highscoreEdit.commit();
     }
     //set the gameState for both this and activity
     //called by either thread
@@ -316,24 +318,22 @@ public class GameLoop implements Runnable{
     }
 
     void saveGame(){
-        synchronized (activity){
-            Log.d("GameLoop", "starting save");
-            if(mediaPlayer!=null)saveEdit.putInt("musicStart",mediaPlayer.getCurrentPosition());
-            saveEdit.putBoolean("gameSaved", true);
-            saveEdit.putInt("speed",speed);
-            saveEdit.putInt("direction",direction);
-            saveEdit.putLong("interval",interval);
-            saveEdit.putInt("foodx", board.food.getX());
-            saveEdit.putInt("foody", board.food.getY());
-            saveEdit.putInt("snakesize", board.snake.size());
-            for(int i=0;i<board.snake.size();i++){
-                saveEdit.putInt("snakex"+i, board.snake.get(i).getX());
-                saveEdit.putInt("snakey"+i, board.snake.get(i).getY());
-            }
-            saveEdit.commit();
-            //Log.d("GameLoop",savePrefs.getAll().toString());
-            Log.d("GameLoop", "ending save");
+        Log.d("GameLoop", "starting save");
+        if(mediaPlayer!=null)saveEdit.putInt("musicStart",mediaPlayer.getCurrentPosition());
+        saveEdit.putBoolean("gameSaved", true);
+        saveEdit.putInt("speed",speed);
+        saveEdit.putInt("direction",direction);
+        saveEdit.putLong("interval",interval);
+        saveEdit.putInt("foodx", board.food.getX());
+        saveEdit.putInt("foody", board.food.getY());
+        saveEdit.putInt("snakesize", board.snake.size());
+        for(int i=0;i<board.snake.size();i++){
+            saveEdit.putInt("snakex"+i, board.snake.get(i).getX());
+            saveEdit.putInt("snakey"+i, board.snake.get(i).getY());
         }
+        saveEdit.commit();
+        //Log.d("GameLoop",savePrefs.getAll().toString());
+        Log.d("GameLoop", "ending save");
     }
 
     SnakeBoard loadSaved(){

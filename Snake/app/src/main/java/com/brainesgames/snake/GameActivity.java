@@ -22,8 +22,7 @@ public class GameActivity extends AppCompatActivity {
     Thread gameThread;
     long lastTap;
     float startX, startY, tapr2;
-    SharedPreferences highscorePrefs,optionPrefs,soundPrefs;
-    SharedPreferences.Editor highscoreEdit,optionEdit;
+
     float dpi;
     int screenWidth,screenHeight;
 
@@ -34,12 +33,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        highscorePrefs=getApplication().getSharedPreferences("highscores", MODE_PRIVATE);
-        highscoreEdit=highscorePrefs.edit();
-        optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
-        optionEdit=optionPrefs.edit();
-        soundPrefs = getApplication().getSharedPreferences("sound", MODE_PRIVATE);
 
         startX=startY=0;
         lastTap=0L;
