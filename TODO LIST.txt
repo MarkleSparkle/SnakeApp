@@ -12,6 +12,7 @@ TODO LIST:
 	3. Save your current score and the position of the snake when you back out of the game until you start a new game. 
 	4. Half the chance of apples spawning on the sides
 	5. Add local leaderboard
+        6. Add munch sound effects after eating an apple.
 }
 TO FIX LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
