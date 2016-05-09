@@ -7,11 +7,15 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.brainesgames.ascii.AsciiCanvas;
@@ -81,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int index = (int) (messages.length*Math.random());
-        int colourIndex = (int) (colours.length*Math.random());
-        int rotationValue = (int) (25*Math.random());
-        double negativeChance = (10*Math.random());
-        if(negativeChance < 5){
-            rotationValue = -1*(rotationValue);
+        int index = (int) (messages.length * Math.random());
+        int colourIndex = (int) (colours.length * Math.random());
+        int rotationValue = (int) (15 * Math.random());
+        double negativeChance = (10 * Math.random());
+        if (negativeChance < 5) {
+            rotationValue = -1 * (rotationValue);
         }
 
 
@@ -96,24 +100,24 @@ public class MainActivity extends AppCompatActivity {
         t.setRotation(rotationValue);
 
         TextView title = (TextView) findViewById(R.id.title);
-        AsciiCanvas ac=AsciiCanvas.load(getResources().openRawResource(R.raw.titleart));
+        AsciiCanvas ac = AsciiCanvas.load(getResources().openRawResource(R.raw.titleart));
 
         //set title as big as possible
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
         int screenWidth = size.x;
-        float maxFontSize=(float)screenWidth / ac.getWidth()*1.57f;
+        float maxFontSize = (float) screenWidth / ac.getWidth() * 1.57f;
         title.setTextSize(TypedValue.COMPLEX_UNIT_PX, maxFontSize);
         //duplicate monospace setting because the xml doesn't work on some devices
         title.setTypeface(Typeface.MONOSPACE);
 
-        if(ac==null){
+        if (ac == null) {
             title.setText("Snake");
-        }
-        else{
+        } else {
             title.setText(ac.toString());
         }
+
     }
 
 /*    @Override
@@ -138,13 +142,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }*/
     /** Called when the user clicks the OPTIONS button */
-    public void optionsMenu(View v) { startActivity(new Intent(this,HowToPlay.class)); }
+    public void toHowto(View v) { startActivity(new Intent(this,HowToPlay.class)); }
 
 
     /** Called when the user clicks the START button */
-    public void options(View v){
+    public void toOptions(View v){
         startActivity(new Intent(this,OptionsActivity.class));
     }
+
+    public void toLeaderboard(View v){startActivity(new Intent(this,LeaderboardActivity.class));}
 }
 
 
