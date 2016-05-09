@@ -124,6 +124,30 @@
             android:id="@+id/soundBox"
             android:layout_marginLeft="20dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:id="@+id/nameLabel"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textColor="#00aa00"
+            android:paddingLeft="10dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="15"
+            android:id="@+id/nameText"
+            android:textSize="@dimen/radio_text_size"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textColor="#00aa00"
+            android:paddingLeft="20dp"/>
+
     </LinearLayout>
 
     <Button

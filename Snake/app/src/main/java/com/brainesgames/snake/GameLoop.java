@@ -115,7 +115,6 @@ public class GameLoop implements Runnable{
         running=true;
         boolean first=true;
         while(running) {
-            score=1;
             if(!first){
                 board.newBoard();
                 interval=getInitialInterval();
@@ -124,6 +123,7 @@ public class GameLoop implements Runnable{
             else{
                 first=false;
             }
+            score=board.snake.size();
             drawBoard.setLine2(DrawBoard.NO_LINE2);
             drawBoard.setScoreText(score, highscore);
             board.setDirection(direction);
@@ -155,7 +155,7 @@ public class GameLoop implements Runnable{
                     drawBoard.setLine2(DrawBoard.OVER_LINE2);
                     drawGame();
                     setState(GAME_OVER);
-                    leaderboard.addScore(score,"noname",modeStr(speed));
+                    leaderboard.addScore(score,optionPrefs.getString("name","noname"),modeStr(speed));
                     pauseLoop();
                 } else {
                     drawGame();

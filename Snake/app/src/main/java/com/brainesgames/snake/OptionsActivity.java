@@ -5,17 +5,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 
 public class OptionsActivity extends AppCompatActivity {
-    SharedPreferences optionPrefs;
+    SharedPreferences optionPrefs,save;
     SharedPreferences.Editor optionEdit;
     RadioGroup speedGroup;
     CheckBox soundEnabled;
-    SharedPreferences save;
+    EditText nameText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,8 @@ public class OptionsActivity extends AppCompatActivity {
                 optionEdit.commit();
             }
         });
+
+        nameText=(EditText)findViewById(R.id.nameText);
     }
     public void startGame(View v){
         if(v.getId()==R.id.startButton){
@@ -106,12 +110,16 @@ public class OptionsActivity extends AppCompatActivity {
             saveEdit.putBoolean("gameSaved", false);
             saveEdit.commit();
         }
+        optionEdit=optionPrefs.edit();
+        optionEdit.putString("name",nameText.getText().toString());
+        optionEdit.commit();
         startActivity(new Intent(this,GameActivity.class));
     }
 
     @Override
     public void onResume(){
         super.onResume();
+        Log.d("OptionsActivity","OnResume");
         save=getApplication().getSharedPreferences("save", Activity.MODE_PRIVATE);
         if(save.getBoolean("gameSaved",false)){
             findViewById(R.id.resumeButton).setVisibility(View.VISIBLE);
@@ -119,5 +127,7 @@ public class OptionsActivity extends AppCompatActivity {
         else{
             findViewById(R.id.resumeButton).setVisibility(View.INVISIBLE);
         }
+        optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
+        nameText.setText(optionPrefs.getString("name","noname"));
     }
 }
