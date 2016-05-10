@@ -13,6 +13,13 @@ TODO LIST:
 }
 TO FIX LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{
+
+	1. To many characters breaks the table.
+		a) limit the character able to be put in the box
+		b) cut the amount of characters if the string is too long
+
+}
 IDEAS LIST:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {
