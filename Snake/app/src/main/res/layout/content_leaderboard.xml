@@ -19,7 +19,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/leaderTitle"
         android:id="@+id/leaderTable">
         <TableRow android:gravity="center_horizontal">
@@ -65,4 +65,20 @@
                 android:paddingRight="@dimen/leader_padding"/>
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BACK"
+        android:id="@+id/backButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/button_size"
+        android:typeface="monospace"
+        android:textStyle="bold"
+        android:textColor="#00cc00"
+        android:background="#999999"
+        android:onClick="backToMain"
+        android:padding="10dp"
+        android:layout_marginBottom="@dimen/button_margin"/>
 </RelativeLayout>

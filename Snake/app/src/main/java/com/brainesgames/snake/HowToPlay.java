@@ -15,4 +15,6 @@ public class HowToPlay extends AppCompatActivity {
         setContentView(R.layout.activity_how_to_play);
     }
 
+
+    public void backToMain(View v){finish();}
 }

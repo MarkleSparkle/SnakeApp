@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -55,4 +56,6 @@ public class LeaderboardActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void backToMain(View v){finish();}
 }
