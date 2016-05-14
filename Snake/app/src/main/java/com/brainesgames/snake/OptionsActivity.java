@@ -99,32 +99,32 @@ public class OptionsActivity extends AppCompatActivity {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                String saveColour;
+                int saveColour;
                 switch (checkedId) {
                     case R.id.greenButton:
-                        saveColour= "0xff00ff00";
+                        saveColour= 0xff00ff00;
                         break;
                     case R.id.redButton:
-                        saveColour = "0xff00ff00";
+                        saveColour = 0xff00ff00;
                         break;
                     case R.id.blueButton:
-                        saveColour = "0xff0000ff";
+                        saveColour = 0xff0000ff;
                         break;
                     case R.id.yellowButton:
-                        saveColour = "0xfffcf914";
+                        saveColour = 0xfffcf914;
                         break;
                     case R.id.purpleButton:
-                        saveColour = "0xffe914fc";
+                        saveColour = 0xffe914fc;
                         break;
                     case R.id.whiteButton:
-                        saveColour = "0xffffffff";
+                        saveColour = 0xffffffff;
                         break;
                     default:
                         colourGroup.check(R.id.greenButton);
-                        saveColour = "0xff00ff00";
+                        saveColour = 0xff00ff00;
                 }
 
-                optionEdit.putString("colour", saveColour);
+                optionEdit.putInt("colour", saveColour);
                 optionEdit.commit();
             }
         });
