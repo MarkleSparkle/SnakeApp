@@ -23,13 +23,12 @@ public class DrawBoard{
     private int width,height;
     private float cheight;
     private Paint psc,ptext;
-    char[] line1,gameoverLine,pauseLine;
-    int  line2Type;
+    private char[] line1,gameoverLine,pauseLine;
+    private int  line2Type;
+    
+    private int colour;
 
-    static Bitmap vline,hline,apple;
-    static boolean bitmapsInitialized=false;
-
-    DrawBoard(SurfaceHolder surfaceHolder,AsciiCanvas asciiCanvas){
+    DrawBoard(SurfaceHolder surfaceHolder,AsciiCanvas asciiCanvas,int colour){
         ac=asciiCanvas;
         sh=surfaceHolder;
         line1=new char[28];
@@ -38,17 +37,20 @@ public class DrawBoard{
         line2Type=NO_LINE2;
         width=0;
         height=0;
+        
+        this.colour=colour;
+        
         psc=new Paint();
-        psc.setColor(0xff00ff00);
+        psc.setColor(colour);
         psc.setTextAlign(Paint.Align.LEFT);
         psc.setTypeface(Typeface.MONOSPACE);
         psc.setTextScaleX(1.66f);
 
         ptext=new Paint();
-        ptext.setColor(0xff00ff00);
+        ptext.setColor(colour);
         ptext.setTextAlign(Paint.Align.LEFT);
         ptext.setTypeface(Typeface.MONOSPACE);
-        initBitmaps();
+        
         initLines();
     }
 
@@ -179,26 +181,6 @@ public class DrawBoard{
         if(line2==PAUSE_LINE2)line2Type=PAUSE_LINE2;
         else if(line2==OVER_LINE2)line2Type=OVER_LINE2;
         else line2Type=NO_LINE2;
-    }
-
-    private static void initBitmaps(){
-        if(!bitmapsInitialized) {
-            vline = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_4444);
-            hline = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_4444);
-            apple = Bitmap.createBitmap(16, 16, Bitmap.Config.ARGB_4444);
-            Canvas vlinec = new Canvas(vline);
-            Canvas hlinec = new Canvas(hline);
-            Canvas applec = new Canvas(apple);
-            Paint textPaint = new Paint();
-            textPaint.setColor(0xff00ff00);
-            textPaint.setTextSize(16);
-            textPaint.setTextScaleX(2);
-            textPaint.setTextAlign(Paint.Align.LEFT);
-            vlinec.drawText("|", 0, 16, textPaint);
-            hlinec.drawText("_", -2, 15, textPaint);
-            applec.drawText("δ", 0, 16, textPaint);
-            bitmapsInitialized=true;
-        }
     }
 
     void draw(){
