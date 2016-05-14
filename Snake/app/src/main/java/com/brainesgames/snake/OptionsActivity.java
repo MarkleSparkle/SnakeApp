@@ -105,7 +105,7 @@ public class OptionsActivity extends AppCompatActivity {
                         saveColour= 0xff00ff00;
                         break;
                     case R.id.redButton:
-                        saveColour = 0xff00ff00;
+                        saveColour = 0xffff0000;
                         break;
                     case R.id.blueButton:
                         saveColour = 0xff0000ff;
