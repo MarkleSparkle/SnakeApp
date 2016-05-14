@@ -37,5 +37,8 @@ IDEAS LIST:
 		4. Mice (moving food)
 		5. Multiple apples on the screen at once
 	}
+	4. Change Colours to Colour Schemes (multiple colours per scheme as opposed to one colour all the way through)
+		1. Colour Schemes would have unique names such as "Royal" or "Popsicle".
+		2. Text one colour, game another
 	
 }
