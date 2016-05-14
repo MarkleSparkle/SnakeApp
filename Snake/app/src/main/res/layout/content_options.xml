@@ -49,70 +49,64 @@
 
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="123dp">
+            android:layout_height="100dp"
+            android:fadeScrollbars="false">
+            <RadioGroup
+                android:id="@+id/speedGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="20dp">
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-
-                <RadioGroup
-                    android:id="@+id/speedGroup"
-                    android:layout_width="match_parent"
+                <RadioButton
+                    android:id="@+id/slowButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingLeft="20dp">
+                    android:text="Slow"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/slowButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Slow"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/normalButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Normal"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/normalButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Normal"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/fastButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fast"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/fastButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fast"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/extremeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Extreme"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/extremeButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Extreme"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/dynamicButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dynamic (Speed increases with each apple)"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/dynamicButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Dynamic (Speed increases with each apple)"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/randomButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Random (Speed changes randomly with each apple)"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/randomButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Random (Speed changes randomly with each apple)"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
-
-                </RadioGroup>
-            </LinearLayout>
+            </RadioGroup>
         </ScrollView>
 
         <TextView
@@ -128,71 +122,64 @@
 
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="103dp">
+            android:layout_height="100dp"
+            android:fadeScrollbars="false">
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:clickable="false">
+            <RadioGroup
+                android:id="@+id/colourGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp">
 
-                <RadioGroup
-                    android:id="@+id/colourGroup"
+                <RadioButton
+                    android:id="@+id/greenButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="171dp"
-                    android:paddingLeft="20dp">
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:text="Green"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/greenButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="Green"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/redButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Red"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/redButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Red"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/blueButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Blue"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/blueButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Blue"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/yellowButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yellow"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/yellowButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Yellow"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
+                <RadioButton
+                    android:id="@+id/purpleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Purple"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
 
-                    <RadioButton
-                        android:id="@+id/purpleButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Purple"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
-
-                    <RadioButton
-                        android:id="@+id/whiteButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="White"
-                        android:textColor="#00aa00"
-                        android:textSize="@dimen/radio_text_size" />
-                </RadioGroup>
-
-            </LinearLayout>
+                <RadioButton
+                    android:id="@+id/whiteButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="White"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size" />
+            </RadioGroup>
         </ScrollView>
 
         <TextView
