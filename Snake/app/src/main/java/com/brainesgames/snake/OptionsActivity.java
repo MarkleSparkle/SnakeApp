@@ -92,6 +92,34 @@ public class OptionsActivity extends AppCompatActivity {
             }
         });
 
+        int colourInt=optionPrefs.getInt("colour", 0xff00ff00);
+        int colourId;
+        switch(colourInt){
+            case 0xff00ff00:
+                colourId=R.id.greenButton;
+                break;
+            case 0xffff0000:
+                colourId=R.id.redButton;
+                break;
+            case 0xff0000ff:
+                colourId=R.id.blueButton;
+                break;
+            case 0xfffcf914:
+                colourId=R.id.yellowButton;
+                break;
+            case 0xffe914fc:
+                colourId=R.id.purpleButton;
+                break;
+            case 0xffffffff:
+                colourId=R.id.whiteButton;
+                break;
+            default:
+                colourId=R.id.greenButton;
+        }
+
+/*        //check box of previous set colour
+        colourGroup.check(colourId);*/
+        //not sure why this errors out... only this statement is causing grief
 
         colourGroup = (RadioGroup)findViewById(R.id.colourGroup);
 
