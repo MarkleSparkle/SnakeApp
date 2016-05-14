@@ -78,7 +78,7 @@
         android:layout_marginTop="90dp"
         android:textColor="#00dd00"
         android:rotation="15"
-        android:textSize="@dimen/text_size"
+        android:textSize="@dimen/button_size"
         android:gravity="center_horizontal"
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
