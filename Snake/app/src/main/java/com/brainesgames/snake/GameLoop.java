@@ -3,6 +3,7 @@ package com.brainesgames.snake;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.util.Log;
 import android.util.TypedValue;
 
@@ -42,7 +43,8 @@ public class GameLoop implements Runnable{
     private DrawBoard drawBoard;
     private long interval;
     private int highscore,score,speed;
-    private MediaPlayer mediaPlayer,death;
+    private MediaPlayer mediaPlayer;
+    private SoundPool soundEffects;
 
     SharedPreferences highscorePrefs,savePrefs,optionPrefs;
     SharedPreferences.Editor highscoreEdit,optionEdit,saveEdit;
