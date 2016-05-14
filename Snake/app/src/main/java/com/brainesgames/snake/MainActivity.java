@@ -17,6 +17,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.brainesgames.ascii.AsciiCanvas;
 

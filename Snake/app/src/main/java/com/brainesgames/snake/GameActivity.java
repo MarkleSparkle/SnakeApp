@@ -11,6 +11,8 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Toast;
+
 import static com.brainesgames.snake.GameLoop.GAME_ON;
 import static com.brainesgames.snake.GameLoop.GAME_READY;
 import static com.brainesgames.snake.GameLoop.GAME_OVER;
@@ -141,6 +143,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onPause(){
+
         super.onPause();
         if(gameThread!=null){
             gameThread.interrupt();

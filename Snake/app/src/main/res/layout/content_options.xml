@@ -4,181 +4,271 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#333333"
     android:paddingBottom="10dp"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="10dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.brainesgames.snake.OptionsActivity"
-    android:background="#333333">
+    tools:context="com.brainesgames.snake.OptionsActivity">
 
 
     <TextView
+        android:id="@+id/optionsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Options"
-        android:id="@+id/optionsTitle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:text="Options"
+        android:textColor="#00aa00"
         android:textSize="@dimen/title_size"
         android:textStyle="bold"
-        android:typeface="serif"
-        android:textColor="#00aa00" />
+        android:typeface="serif" />
 
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/optionsTitle"
         android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout"
+        android:orientation="vertical"
         android:weightSum="1">
 
         <TextView
+            android:id="@+id/speedLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Speed"
-            android:id="@+id/speedLabel"
             android:layout_below="@+id/optionsTitle"
+            android:paddingLeft="10dp"
+            android:text="Speed (Scroll)"
+            android:textColor="#00aa00"
             android:textSize="@dimen/text_size"
             android:textStyle="bold"
-            android:typeface="serif"
-            android:textColor="#00aa00"
-            android:paddingLeft="10dp" />
+            android:typeface="serif" />
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/speedGroup"
-            android:paddingLeft="20dp">
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="123dp">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Slow"
-                android:textSize="@dimen/radio_text_size"
-                android:id="@+id/slowButton"
-                android:textColor="#00aa00" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Normal"
-                android:textSize="@dimen/radio_text_size"
-                android:id="@+id/normalButton"
-                android:textColor="#00aa00" />
+                <RadioGroup
+                    android:id="@+id/speedGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingLeft="20dp">
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fast"
-                android:textSize="@dimen/radio_text_size"
-                android:id="@+id/fastButton"
-                android:textColor="#00aa00" />
+                    <RadioButton
+                        android:id="@+id/slowButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Slow"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Extreme"
-                android:textSize="@dimen/radio_text_size"
-                android:id="@+id/extremeButton"
-                android:textColor="#00aa00" />
+                    <RadioButton
+                        android:id="@+id/normalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Normal"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dynamic (Speed increases with each apple)"
-                android:textSize="@dimen/radio_text_size"
-                android:id="@+id/dynamicButton"
-                android:textColor="#00aa00" />
+                    <RadioButton
+                        android:id="@+id/fastButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fast"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
 
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Random (Speed changes randomly with each apple)"
-                android:textSize="@dimen/radio_text_size"
-                android:id="@+id/randomButton"
-                android:textColor="#00aa00" />
+                    <RadioButton
+                        android:id="@+id/extremeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Extreme"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
 
-        </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/dynamicButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dynamic (Speed increases with each apple)"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/randomButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Random (Speed changes randomly with each apple)"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                </RadioGroup>
+            </LinearLayout>
+        </ScrollView>
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sound"
-            android:id="@+id/soundLabel"
+            android:paddingLeft="10dp"
+            android:text="Colour (Scroll)"
+            android:textColor="#00aa00"
             android:textSize="@dimen/text_size"
             android:textStyle="bold"
-            android:typeface="serif"
+            android:typeface="serif" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="103dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/colourGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="171dp"
+                    android:paddingLeft="20dp">
+
+                    <RadioButton
+                        android:id="@+id/greenButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Green"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/redButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Red"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/blueButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Blue"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/yellowButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yellow"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/purpleButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:text="Purple"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/whiteButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="White"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+                </RadioGroup>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/soundLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="Sound"
             android:textColor="#00aa00"
-            android:paddingLeft="10dp"/>
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold"
+            android:typeface="serif" />
 
         <CheckBox
+            android:id="@+id/soundBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:text="Enable Sound"
-            android:textSize="@dimen/radio_text_size"
             android:textColor="#00aa00"
-            android:id="@+id/soundBox"
-            android:layout_marginLeft="20dp"/>
+            android:textSize="@dimen/radio_text_size" />
 
         <TextView
+            android:id="@+id/nameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
             android:text="Name"
-            android:id="@+id/nameLabel"
+            android:textColor="#00aa00"
             android:textSize="@dimen/text_size"
             android:textStyle="bold"
-            android:typeface="serif"
-            android:textColor="#00aa00"
-            android:paddingLeft="10dp"/>
+            android:typeface="serif" />
 
         <EditText
+            android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Name"
             android:ems="15"
-            android:id="@+id/nameText"
+            android:inputType="textPersonName"
+            android:paddingLeft="20dp"
+            android:text="Name"
+            android:textColor="#00aa00"
             android:textSize="@dimen/radio_text_size"
             android:textStyle="bold"
-            android:typeface="serif"
-            android:textColor="#00aa00"
-            android:paddingLeft="20dp"/>
+            android:typeface="serif" />
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Game"
-        android:id="@+id/startButton"
-        android:textColor="#00dd00"
-        android:background="#666666"
-        android:padding="10dp"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/button_size"
-        android:onClick="startGame"
-        android:layout_gravity="bottom|center_horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/button_margin" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="@dimen/button_margin"
+        android:background="#666666"
+        android:onClick="startGame"
+        android:padding="10dp"
+        android:text="Start Game"
+        android:textColor="#00dd00"
+        android:textSize="@dimen/button_size" />
 
     <Button
+        android:id="@+id/resumeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Resume Saved"
-        android:id="@+id/resumeButton"
-        android:layout_gravity="center_horizontal"
         android:layout_above="@+id/startButton"
-        android:layout_marginBottom="@dimen/button_margin"
-        android:gravity="center"
-        android:textColor="#00dd00"
-        android:background="#666666"
-        android:padding="10dp"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/button_size"
-        android:onClick="startGame"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/button_margin"
+        android:background="#666666"
+        android:gravity="center"
+        android:onClick="startGame"
+        android:padding="10dp"
+        android:text="Resume Saved"
+        android:textColor="#00dd00"
+        android:textSize="@dimen/button_size" />
 
 </RelativeLayout>

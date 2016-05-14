@@ -42,7 +42,7 @@ public class GameLoop implements Runnable{
     private DrawBoard drawBoard;
     private long interval;
     private int highscore,score,speed;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer,death;
 
     SharedPreferences highscorePrefs,savePrefs,optionPrefs;
     SharedPreferences.Editor highscoreEdit,optionEdit,saveEdit;

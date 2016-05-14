@@ -15,7 +15,7 @@ import android.widget.RadioGroup;
 public class OptionsActivity extends AppCompatActivity {
     SharedPreferences optionPrefs,save;
     SharedPreferences.Editor optionEdit;
-    RadioGroup speedGroup;
+    RadioGroup speedGroup, colourGroup;
     CheckBox soundEnabled;
     EditText nameText;
 
@@ -91,6 +91,46 @@ public class OptionsActivity extends AppCompatActivity {
                 optionEdit.commit();
             }
         });
+
+
+        colourGroup = (RadioGroup)findViewById(R.id.colourGroup);
+
+        colourGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                String saveColour;
+                switch (checkedId) {
+                    case R.id.greenButton:
+                        saveColour= "0xff00ff00";
+                        break;
+                    case R.id.redButton:
+                        saveColour = "0xff00ff00";
+                        break;
+                    case R.id.blueButton:
+                        saveColour = "0xff0000ff";
+                        break;
+                    case R.id.yellowButton:
+                        saveColour = "0xfffcf914";
+                        break;
+                    case R.id.purpleButton:
+                        saveColour = "0xffe914fc";
+                        break;
+                    case R.id.whiteButton:
+                        saveColour = "0xffffffff";
+                        break;
+                    default:
+                        colourGroup.check(R.id.greenButton);
+                        saveColour = "0xff00ff00";
+                }
+
+                optionEdit.putString("colour", saveColour);
+                optionEdit.commit();
+            }
+        });
+
+
+
 
         soundEnabled=(CheckBox)findViewById(R.id.soundBox);
         soundEnabled.setChecked(optionPrefs.getBoolean("soundEnabled", true));
