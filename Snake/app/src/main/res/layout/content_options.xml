@@ -133,7 +133,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:clickable="false">
 
                 <RadioGroup
                     android:id="@+id/colourGroup"
@@ -177,7 +178,7 @@
                     <RadioButton
                         android:id="@+id/purpleButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:text="Purple"
                         android:textColor="#00aa00"
                         android:textSize="@dimen/radio_text_size" />
