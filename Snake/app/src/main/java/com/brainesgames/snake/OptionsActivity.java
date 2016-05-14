@@ -151,7 +151,9 @@ public class OptionsActivity extends AppCompatActivity {
             saveEdit.commit();
         }
         optionEdit=optionPrefs.edit();
-        optionEdit.putString("name",nameText.getText().toString());
+        String name=nameText.getText().toString();
+        if(name.length()>20)name=name.substring(0,20);
+        optionEdit.putString("name",name);
         optionEdit.commit();
         startActivity(new Intent(this,GameActivity.class));
     }

@@ -11,8 +11,8 @@ public class SnakeBoard {
 	int direction;
 	
 	SnakeBoard(){
-		width=20;
-		height=30;
+		width=18;
+		height=32;
 		newBoard();
 	}
 	

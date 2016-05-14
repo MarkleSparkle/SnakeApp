@@ -17,39 +17,50 @@ public class DrawBoard{
     final static int NO_LINE2=0;
     final static int PAUSE_LINE2=1;
     final static int OVER_LINE2=2;
+    final static int READY_LINE2=3;
     private AsciiCanvas ac;
     private SurfaceHolder sh;
     private Canvas c;
-    private int width,height;
     private float cheight;
-    private Paint psc,ptext;
-    private char[] line1,gameoverLine,pauseLine;
+    private Paint pac,ptext;
+    private char[] line1;
+    private String gameoverLine,pauseLine,readyLine;
     private int  line2Type;
-    
-    private int colour;
+    private Bitmap gameBitmap;
+    private Canvas gameCanvas;
+    private Rect surfaceRect;
 
     DrawBoard(SurfaceHolder surfaceHolder,AsciiCanvas asciiCanvas,int colour){
         ac=asciiCanvas;
         sh=surfaceHolder;
         line1=new char[28];
-        gameoverLine=new char[28];
-        pauseLine=new char[24];
+        gameoverLine=" GAME OVER. TAP TO TRY AGAIN";
+        pauseLine=" PAUSED. SWIPE TO START";
+        readyLine=" SWIPE TO START";
         line2Type=NO_LINE2;
-        width=0;
-        height=0;
-        
-        this.colour=colour;
-        
-        psc=new Paint();
-        psc.setColor(colour);
-        psc.setTextAlign(Paint.Align.LEFT);
-        psc.setTypeface(Typeface.MONOSPACE);
-        psc.setTextScaleX(1.66f);
+
+        int w=258;
+        int h=485;
+        gameBitmap=Bitmap.createBitmap(w,h, Bitmap.Config.ARGB_8888);
+        gameCanvas=new Canvas(gameBitmap);
+        surfaceRect=new Rect();
+
+        float textSize=7f;
+        cheight=textSize;
+
+
+        pac=new Paint();
+        pac.setColor(colour);
+        pac.setTextAlign(Paint.Align.LEFT);
+        pac.setTypeface(Typeface.MONOSPACE);
+        pac.setTextScaleX(1.6f);
+        pac.setTextSize(textSize);
 
         ptext=new Paint();
         ptext.setColor(colour);
         ptext.setTextAlign(Paint.Align.LEFT);
         ptext.setTypeface(Typeface.MONOSPACE);
+        ptext.setTextSize(textSize*2);
         
         initLines();
     }
@@ -87,58 +98,6 @@ public class DrawBoard{
         line1[26]=' ';
         line1[27]=' ';
 
-        gameoverLine[0]=' ';
-        gameoverLine[1]='G';
-        gameoverLine[2]='A';
-        gameoverLine[3]='M';
-        gameoverLine[4]='E';
-        gameoverLine[5]=' ';
-        gameoverLine[6]='O';
-        gameoverLine[7]='V';
-        gameoverLine[8]='E';
-        gameoverLine[9]='R';
-        gameoverLine[10]='.';
-        gameoverLine[11]=' ';
-        gameoverLine[12]='T';
-        gameoverLine[13]='A';
-        gameoverLine[14]='P';
-        gameoverLine[15]=' ';
-        gameoverLine[16]='T';
-        gameoverLine[17]='O';
-        gameoverLine[18]=' ';
-        gameoverLine[19]='T';
-        gameoverLine[20]='R';
-        gameoverLine[21]='Y';
-        gameoverLine[22]=' ';
-        gameoverLine[23]='A';
-        gameoverLine[24]='G';
-        gameoverLine[25]='A';
-        gameoverLine[26]='I';
-        gameoverLine[27]='N';
-
-        pauseLine[0]=' ';
-        pauseLine[1]='P';
-        pauseLine[2]='A';
-        pauseLine[3]='U';
-        pauseLine[4]='S';
-        pauseLine[5]='E';
-        pauseLine[6]='D';
-        pauseLine[7]='.';
-        pauseLine[8]=' ';
-        pauseLine[9]='T';
-        pauseLine[10]='A';
-        pauseLine[11]='P';
-        pauseLine[12]=' ';
-        pauseLine[13]='T';
-        pauseLine[14]='O';
-        pauseLine[15]=' ';
-        pauseLine[16]='R';
-        pauseLine[17]='E';
-        pauseLine[18]='S';
-        pauseLine[19]='T';
-        pauseLine[20]='A';
-        pauseLine[22]='R';
-        pauseLine[23]='T';
     }
 
     void setScoreText(int score,int highscore){
@@ -178,25 +137,31 @@ public class DrawBoard{
     }
 
     void setLine2(int line2){
-        if(line2==PAUSE_LINE2)line2Type=PAUSE_LINE2;
-        else if(line2==OVER_LINE2)line2Type=OVER_LINE2;
-        else line2Type=NO_LINE2;
+        switch (line2){
+            case PAUSE_LINE2:
+                line2Type=PAUSE_LINE2;
+                break;
+            case OVER_LINE2:
+                line2Type=OVER_LINE2;
+                break;
+            case READY_LINE2:
+                line2Type=READY_LINE2;
+                break;
+            default:
+                line2Type=NO_LINE2;
+        }
+
     }
 
     void draw(){
         c = sh.lockCanvas();
         if(c!=null) {
-            width = c.getWidth();
-            height = c.getHeight();
-            float sizemaxx=width / ac.getWidth();
-            float sizemaxy=height / (ac.getHeight()+4);
-            //Log.d("GameLoop","sizemaxx: "+sizemaxx);
-            //Log.d("GameLoop","sizemaxy: "+sizemaxy);
-            float sizemax=Math.min(sizemaxx,sizemaxy);
-            cheight = sizemax;
-            psc.setTextSize(sizemax);
-            ptext.setTextSize(sizemax*2);
+            int w=c.getWidth();
+            int h=c.getHeight();
+            surfaceRect.set(w/100, h/100,w*98/100,h*98/100);
             drawBoard();
+            c.drawBitmap(gameBitmap, null, surfaceRect,null);
+            //c.drawBitmap(gameBitmap,0,0,null);
             sh.unlockCanvasAndPost(c);
         }
         else{
@@ -205,18 +170,30 @@ public class DrawBoard{
     }
 
     void drawBoard(){
-        c.drawARGB(255, 0, 0, 0);
-        c.drawText(line1,0,line1.length,0,cheight*2,ptext);
+        gameCanvas.drawARGB(255, 0, 0, 0);
+        //draw outline for debugging
+/*        int w=gameCanvas.getWidth();
+        int h=gameCanvas.getHeight();
+        pac.setStrokeWidth(3);
+        gameCanvas.drawLine(0,0,w,0,pac);
+        gameCanvas.drawLine(0,0,0,h,pac);
+        gameCanvas.drawLine(w,0,w,h,pac);
+        gameCanvas.drawLine(0,h,w,h,pac);*/
+        //
+        gameCanvas.drawText(line1,0,line1.length,0,cheight*2,ptext);
         switch (line2Type){
             case PAUSE_LINE2:
-                c.drawText(pauseLine,0,pauseLine.length,0,cheight*4,ptext);
+                gameCanvas.drawText(pauseLine,0,cheight*4,ptext);
                 break;
             case OVER_LINE2:
-                c.drawText(gameoverLine,0,gameoverLine.length,0,cheight*4,ptext);
+                gameCanvas.drawText(gameoverLine,0,cheight*4,ptext);
+                break;
+            case READY_LINE2:
+                gameCanvas.drawText(readyLine,0,cheight*4,ptext);
                 break;
         }
 
-        ac.draw(c,cheight*5,0,cheight,psc);
+        ac.draw(gameCanvas,cheight*5,0,cheight,pac);
     }
 
 }
