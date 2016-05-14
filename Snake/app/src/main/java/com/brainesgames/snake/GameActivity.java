@@ -104,14 +104,12 @@ public class GameActivity extends AppCompatActivity {
                                 }
                                 //save the time of this tap
                                 lastTap = thisTap;
-                            } else {
-                                game.setState(GAME_ON);
                             }
 
                         }
                         else {//otherwise a swipe is registered and continues the game
                             //Log.d("GameActivity","SWIPE");
-                            if (gameState == GAME_ON || gameState == GAME_READY) {
+                            if (gameState == GAME_ON || gameState == GAME_READY || gameState == GAME_PAUSED) {
                                 if (Math.abs(dy) > Math.abs(dx)) {
                                     if (dy >= 0) {
                                         direction = 2;
@@ -127,7 +125,7 @@ public class GameActivity extends AppCompatActivity {
                                 }
 
                                 game.setDirection(direction);
-                                if (gameState == GAME_READY) game.setState(GAME_ON);
+                                if (gameState == GAME_READY || gameState == GAME_PAUSED) game.setState(GAME_ON);
                             }
                         }
                         break;
@@ -143,7 +141,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onPause(){
-
+        Log.d("GameActivity","onPause");
         super.onPause();
         if(gameThread!=null){
             gameThread.interrupt();
@@ -152,6 +150,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onResume(){
+        Log.d("GameActivity","onResume");
         super.onResume();
         //start the game loop
         startGameLoop();

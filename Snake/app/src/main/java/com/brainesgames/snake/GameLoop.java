@@ -89,9 +89,6 @@ public class GameLoop implements Runnable{
             speed = getSpeed();
             interval=getInitialInterval();
         }
-        //reset gameSaved to false
-        saveEdit.putBoolean("gameSaved", false);
-        saveEdit.commit();
 
         sc = new SnakeCanvas(board);
         highscore = highscorePrefs.getInt("high" + modeStr(speed), 1);
@@ -106,6 +103,7 @@ public class GameLoop implements Runnable{
         if(mediaPlayer!=null){
             mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 public boolean onError(MediaPlayer mp, int what, int extra) {
+                    Log.e("GameLoop","MediaPlayer error. setting mediaPlayer to null");
                     mediaPlayer.release();
                     mediaPlayer = null;
                     return true;
@@ -117,35 +115,46 @@ public class GameLoop implements Runnable{
         running=true;
         boolean first=true;
         while(running) {
+            //if game has been restart, recreate the board
             if(!first){
                 board.newBoard();
                 interval=getInitialInterval();
                 musicStart=0;
             }
+            //dont reset the board, it was built earlier
             else{
                 first=false;
             }
             score=board.snake.size();
-            drawBoard.setLine2(DrawBoard.NO_LINE2);
+            drawBoard.setLine2(DrawBoard.READY_LINE2);
             drawBoard.setScoreText(score, highscore);
             board.setDirection(direction);
             drawGame();
-            try {
-                synchronized (this){
-                    wait(1000);
-                    if(gameState!=GAME_ON)setState(GAME_ON);
-                }
-            } catch (InterruptedException e) {
-                Log.d("GameLoop","Thread interrupted: terminating");
-                running=false;
-            }
+            //wait until the user swipes to start
+            waitLoop();
+            //reset gameSaved to false
+            //ensure the app loop is still running (so the user doesnt exit before starting and lose their progress)
+            if(!running)break;
+            Log.d("GameLoop","setting gameSaved to false");
+            saveEdit.putBoolean("gameSaved", false);
+            saveEdit.commit();
 
             if(mediaPlayer!=null){
                 mediaPlayer.seekTo(musicStart);
                 mediaPlayer.start();
             }
 
-            while (gameState==GAME_ON && running) {
+            drawBoard.setLine2(DrawBoard.NO_LINE2);
+            while ((gameState==GAME_ON || gameState==GAME_PAUSED) && running) {
+                if(gameState==GAME_PAUSED) {
+                    drawPause();
+                    pauseLoop();
+                    //immediatly break if interupted (GameActivty paused) while in pause
+                    if(!running)break;
+                    if (mediaPlayer != null) mediaPlayer.start();
+                    drawBoard.setLine2(DrawBoard.NO_LINE2);
+                }
+
                 long start=System.currentTimeMillis();
                 int scoreBefore = score;
                 board.setDirection(direction);
@@ -181,13 +190,6 @@ public class GameLoop implements Runnable{
                 } catch (InterruptedException e) {
                     Log.d("GameLoop", "Thread interrupted: terminating");
                     running=false;
-                }
-
-                if(gameState==GAME_PAUSED) {
-                    drawPause();
-                    pauseLoop();
-                    if (mediaPlayer != null) mediaPlayer.start();
-                    drawBoard.setLine2(DrawBoard.NO_LINE2);
                 }
             }
         }
@@ -288,7 +290,7 @@ public class GameLoop implements Runnable{
     //set the gameState for both this and activity
     //called by either thread
     synchronized void setState(int state){
-        Log.d("GameLoop","Setting State to: "+stateString(state));
+        Log.d("GameLoop", "Setting State to: " + stateString(state));
         gameState=state;
         activity.gameState=state;
         if(state==GAME_OVER) updateHigh();
@@ -297,6 +299,16 @@ public class GameLoop implements Runnable{
     //called by this thread when state becomes either GAME_PAUSED or GAME_OVER
     synchronized void pauseLoop(){
         if (mediaPlayer != null) mediaPlayer.pause();
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            Log.d("GameLoop", "Thread interrupted: terminating");
+            running=false;
+        }
+    }
+
+    //called by this thread when state becomes GAME_READY
+    synchronized void waitLoop(){
         try {
             wait();
         } catch (InterruptedException e) {
@@ -323,6 +335,7 @@ public class GameLoop implements Runnable{
     void saveGame(){
         Log.d("GameLoop", "starting save");
         if(mediaPlayer!=null)saveEdit.putInt("musicStart",mediaPlayer.getCurrentPosition());
+        Log.d("GameLoop", "setting gameSaved to true");
         saveEdit.putBoolean("gameSaved", true);
         saveEdit.putInt("speed",speed);
         saveEdit.putInt("direction",direction);
