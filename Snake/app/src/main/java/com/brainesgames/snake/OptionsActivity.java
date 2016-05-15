@@ -118,11 +118,8 @@ public class OptionsActivity extends AppCompatActivity {
                 colourId=R.id.classicButton;
         }
 
-/*        //check box of previous set colour
-        colourGroup.check(colourId);*/
-        //not sure why this errors out... only this statement is causing grief
-
         colourGroup = (RadioGroup)findViewById(R.id.colourGroup);
+        colourGroup.check(colourId);
 
         colourGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -170,8 +167,6 @@ public class OptionsActivity extends AppCompatActivity {
                 optionEdit.commit();
             }
         });
-
-
 
 
         soundEnabled=(CheckBox)findViewById(R.id.soundBox);
