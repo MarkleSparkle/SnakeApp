@@ -19,6 +19,7 @@ public class OptionsActivity extends AppCompatActivity {
     CheckBox soundEnabled;
     EditText nameText;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,25 +97,25 @@ public class OptionsActivity extends AppCompatActivity {
         int colourId;
         switch(colourInt){
             case 0xff00ff00:
-                colourId=R.id.greenButton;
+                colourId=R.id.classicButton;
                 break;
             case 0xffff0000:
-                colourId=R.id.redButton;
+                colourId=R.id.brightButton;
                 break;
             case 0xff0000ff:
-                colourId=R.id.blueButton;
+                colourId=R.id.uglyButton;
                 break;
             case 0xfffcf914:
-                colourId=R.id.yellowButton;
+                colourId=R.id.chillButton;
                 break;
             case 0xffe914fc:
-                colourId=R.id.purpleButton;
+                colourId=R.id.sunriseButton;
                 break;
             case 0xffffffff:
-                colourId=R.id.whiteButton;
+                colourId=R.id.albinoButton;
                 break;
             default:
-                colourId=R.id.greenButton;
+                colourId=R.id.classicButton;
         }
 
 /*        //check box of previous set colour
@@ -128,31 +129,44 @@ public class OptionsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 int saveColour;
+                int saveComplementary = 0;
                 switch (checkedId) {
-                    case R.id.greenButton:
-                        saveColour= 0xff00ff00;
+
+
+                    //create normal theme with the darker green all the way through as DEFAULT and only one unlocked upon download
+
+
+                    case R.id.classicButton://Classic Theme
+                        saveColour = 0xff00ff00;//green
+                        saveComplementary = 0xffff00ff;//magenta
                         break;
-                    case R.id.redButton:
-                        saveColour = 0xffff0000;
+                    case R.id.brightButton://Bright Theme
+                        saveColour = 0xff1caac9;//light blue
+                        saveComplementary = 0xffc92b1c;//orange-red
                         break;
-                    case R.id.blueButton:
-                        saveColour = 0xff0000ff;
+                    case R.id.uglyButton://Ugly Duckling
+                        saveColour = 0xff8873BF;//purple
+                        saveComplementary = 0xffBFAE73;//ugly yellow
                         break;
-                    case R.id.yellowButton:
-                        saveColour = 0xfffcf914;
+                    case R.id. chillButton://Chill Theme
+                        saveColour = 0xffFC14FC;//bright purple
+                        saveComplementary = 0xff1488FC;//blue
                         break;
-                    case R.id.purpleButton:
-                        saveColour = 0xffe914fc;
+                    case R.id.sunriseButton://Sunrise Theme
+                        saveColour = 0xffFC141C;//orange
+                        saveComplementary = 0xffFC8014;//red
                         break;
-                    case R.id.whiteButton:
-                        saveColour = 0xffffffff;
+                    case R.id.albinoButton:
+                        saveComplementary = saveColour = 0xffffffff;//white
                         break;
                     default:
-                        colourGroup.check(R.id.greenButton);
-                        saveColour = 0xff00ff00;
+                        colourGroup.check(R.id.classicButton);//check classic theme box
+                        saveColour = 0xff00ff00;//green
+                        saveComplementary = 0xffff00ff;//magenta
                 }
 
                 optionEdit.putInt("colour", saveColour);
+                optionEdit.putInt("complementary", saveComplementary);
                 optionEdit.commit();
             }
         });

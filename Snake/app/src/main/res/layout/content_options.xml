@@ -132,51 +132,52 @@
                 android:paddingLeft="20dp">
 
                 <RadioButton
-                    android:id="@+id/greenButton"
+                    android:id="@+id/classicButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="false"
-                    android:text="Green"
+                    android:text="Classic"
                     android:textColor="#00aa00"
                     android:textSize="@dimen/radio_text_size" />
 
                 <RadioButton
-                    android:id="@+id/redButton"
+                    android:id="@+id/brightButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Red"
+                    android:text="Bright"
                     android:textColor="#00aa00"
                     android:textSize="@dimen/radio_text_size" />
 
                 <RadioButton
-                    android:id="@+id/blueButton"
+                    android:id="@+id/uglyButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Blue"
+                    android:text="Ugly Duckling"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/radio_text_size"
+                    android:singleLine="false" />
+
+                <RadioButton
+                    android:id="@+id/chillButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chill"
                     android:textColor="#00aa00"
                     android:textSize="@dimen/radio_text_size" />
 
                 <RadioButton
-                    android:id="@+id/yellowButton"
+                    android:id="@+id/sunriseButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Yellow"
+                    android:text="Sunrise"
                     android:textColor="#00aa00"
                     android:textSize="@dimen/radio_text_size" />
 
                 <RadioButton
-                    android:id="@+id/purpleButton"
+                    android:id="@+id/albinoButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Purple"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/whiteButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="White"
+                    android:text="Albino"
                     android:textColor="#00aa00"
                     android:textSize="@dimen/radio_text_size" />
             </RadioGroup>

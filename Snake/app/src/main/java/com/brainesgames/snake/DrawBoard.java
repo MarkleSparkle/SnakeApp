@@ -30,7 +30,7 @@ public class DrawBoard{
     private Canvas gameCanvas;
     private Rect surfaceRect;
 
-    DrawBoard(SurfaceHolder surfaceHolder,AsciiCanvas asciiCanvas,int colour){
+    DrawBoard(SurfaceHolder surfaceHolder,AsciiCanvas asciiCanvas,int colour,int complementary){
         ac=asciiCanvas;
         sh=surfaceHolder;
         line1=new char[28];
@@ -50,7 +50,7 @@ public class DrawBoard{
 
 
         pac=new Paint();
-        pac.setColor(colour);
+        pac.setColor(complementary);
         pac.setTextAlign(Paint.Align.LEFT);
         pac.setTypeface(Typeface.MONOSPACE);
         pac.setTextScaleX(1.6f);

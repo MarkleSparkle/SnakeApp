@@ -92,7 +92,7 @@ public class GameLoop implements Runnable{
 
         sc = new SnakeCanvas(board);
         highscore = highscorePrefs.getInt("high" + modeStr(speed), 1);
-        drawBoard = new DrawBoard(activity.surfaceHolder, sc.canvas,optionPrefs.getInt("colour",0xff00ff00));
+        drawBoard = new DrawBoard(activity.surfaceHolder, sc.canvas,optionPrefs.getInt("colour",0xff00ff00),optionPrefs.getInt("complementary", 0xffff00ff));
         mediaPlayer = null;
 
         Leaderboard leaderboard=new Leaderboard(activity.getApplication().getSharedPreferences("leaderboard",Activity.MODE_PRIVATE));
