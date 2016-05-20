@@ -96,6 +96,9 @@ public class OptionsActivity extends AppCompatActivity {
         int colourInt=optionPrefs.getInt("colour", 0xff00ff00);
         int colourId;
         switch(colourInt){
+            case 0xff00aa00:
+                colourId=R.id.originalButton;
+                break;
             case 0xff00ff00:
                 colourId=R.id.classicButton;
                 break;
@@ -131,8 +134,9 @@ public class OptionsActivity extends AppCompatActivity {
 
 
                     //create normal theme with the darker green all the way through as DEFAULT and only one unlocked upon download
-
-
+                    case R.id.originalButton://original Theme
+                        saveComplementary = saveColour = 0xff00aa00;//dark green
+                        break;
                     case R.id.classicButton://Classic Theme
                         saveColour = 0xff00ff00;//green
                         saveComplementary = 0xffff00ff;//magenta
@@ -157,9 +161,8 @@ public class OptionsActivity extends AppCompatActivity {
                         saveComplementary = saveColour = 0xffffffff;//white
                         break;
                     default:
-                        colourGroup.check(R.id.classicButton);//check classic theme box
-                        saveColour = 0xff00ff00;//green
-                        saveComplementary = 0xffff00ff;//magenta
+                        colourGroup.check(R.id.originalButton);//check original theme box
+                        saveComplementary = saveColour = 0xff00aa00;
                 }
 
                 optionEdit.putInt("colour", saveColour);
