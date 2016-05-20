@@ -162,6 +162,8 @@ public class OptionsActivity extends AppCompatActivity {
         }
 
         colourGroup = (RadioGroup)findViewById(R.id.colourGroup);
+        colourGroup.check(colourId);
+        lastCheckedId=colourId;
         skins=new Skin[9];
         skins[0]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.originalButton),"s",-1);
         skins[1]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.blueButton),"s",-1);
