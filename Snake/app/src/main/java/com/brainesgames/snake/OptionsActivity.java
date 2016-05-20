@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 public class OptionsActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class OptionsActivity extends AppCompatActivity {
     RadioGroup speedGroup, colourGroup;
     CheckBox soundEnabled;
     EditText nameText;
-
+    RadioButton brightButton,uglyButton,chillButton,sunriseButton,albinoButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +123,11 @@ public class OptionsActivity extends AppCompatActivity {
         }
 
         colourGroup = (RadioGroup)findViewById(R.id.colourGroup);
+        brightButton=(RadioButton)findViewById(R.id.brightButton);
+        uglyButton=(RadioButton)findViewById(R.id.uglyButton);
+        chillButton=(RadioButton)findViewById(R.id.chillButton);
+        sunriseButton=(RadioButton)findViewById(R.id.sunriseButton);
+        albinoButton=(RadioButton)findViewById(R.id.albinoButton);
         colourGroup.check(colourId);
 
         colourGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -183,6 +189,8 @@ public class OptionsActivity extends AppCompatActivity {
         });
 
         nameText=(EditText)findViewById(R.id.nameText);
+        optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
+        nameText.setText(optionPrefs.getString("name","noname"));
     }
     public void startGame(View v){
         if(v.getId()==R.id.startButton){
@@ -209,7 +217,14 @@ public class OptionsActivity extends AppCompatActivity {
         else{
             findViewById(R.id.resumeButton).setVisibility(View.INVISIBLE);
         }
-        optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
-        nameText.setText(optionPrefs.getString("name","noname"));
+
+        SharedPreferences highscorePrefs=getApplication().getSharedPreferences("highscores", Activity.MODE_PRIVATE);
+
+        brightButton.setEnabled(highscorePrefs.getInt("highs",-1)>=20);
+        uglyButton.setEnabled(highscorePrefs.getInt("highn",-1)>=20);
+        chillButton.setEnabled(highscorePrefs.getInt("highf",-1)>=20);
+        sunriseButton.setEnabled(highscorePrefs.getInt("highd",-1)>=20);
+        albinoButton.setEnabled(highscorePrefs.getInt("highx",-1)>=20);
+        //brightButton.setEnabled(highscorePrefs.getInt("highr",-1)>=20);
     }
 }
