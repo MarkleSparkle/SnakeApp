@@ -125,18 +125,45 @@ public class OptionsActivity extends AppCompatActivity {
                     Toast.makeText(ctx,skin.lockMessage(),Toast.LENGTH_LONG).show();
                     return;
                 }
-
-                int saveComplementary,saveColour;
+                int saveColour,saveComplementary;
                 switch (checkedId) {
                     //create normal theme with the darker green all the way through as DEFAULT and only one unlocked upon download
                     case R.id.originalButton://original Theme
                         saveComplementary = saveColour = 0xff00aa00;//dark green
                         break;
-                    case R.id.blueButton:
+                    case R.id.blueButton://blue Theme
                         saveComplementary = saveColour = 0xff0000dd;//light blue
                         break;
-                    case R.id.redButton:
+                    case R.id.redButton://red Theme
                         saveComplementary = saveColour = 0xffdd0000;//light red
+                        break;
+                    case R.id.mustardButton://Mustard Theme
+                        saveComplementary = saveColour = 0xffC0B500;
+                        break;
+                    case R.id.orangeRedButton://Orange-Red Theme
+                        saveComplementary = saveColour = 0xffC64C00;
+                        break;
+                    case R.id.tealButton://Teal Deal Theme
+                        saveComplementary = saveColour = 0xff1DAE75;
+                        break;
+                    case R.id.hotPinkButton://Hot Pink Theme
+                        saveComplementary = saveColour = 0xffFF89E8;
+                        break;
+                    case R.id.blehButton://bleh Theme
+                        saveComplementary = 0xffFCD66F;
+                        saveColour = 0xffFCD66F;
+                        break;
+                    case R.id.royaltyButton://Royalty Theme
+                        saveComplementary = 0xff9307B5;
+                        saveColour = 0xffF9E800;
+                        break;
+                    case R.id.nightSkyButton://Night Sky Theme
+                        saveComplementary = 0xff9E12E7;
+                        saveColour = 0xff153E36;
+                        break;
+                    case R.id.greenerGrassButton://Greener Grass Theme
+                        saveComplementary = 0xff227830;
+                        saveColour = 0xff26B51D;
                         break;
                     case R.id.classicButton://Classic Theme
                         saveColour = 0xff00ff00;//green
