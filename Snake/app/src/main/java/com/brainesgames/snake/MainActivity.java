@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
             "I follow the teachings of Marx in my facial hair.",
             "CLICK HERE FOR A FREE TROJAN HORSE",
             "If this statement is true, the previous statement is false.",
+            "Slim, Slimey, Slippery Snakes Slither Slowly",
             "Git it together!",
             "Just like Git, you gotta commit!",
             "Vogel the Monkey!"

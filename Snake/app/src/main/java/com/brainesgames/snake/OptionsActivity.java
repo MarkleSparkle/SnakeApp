@@ -1,33 +1,39 @@
 package com.brainesgames.snake;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class OptionsActivity extends AppCompatActivity {
-    SharedPreferences optionPrefs,save;
+    SharedPreferences optionPrefs,highscorePrefs,save;
     SharedPreferences.Editor optionEdit;
     RadioGroup speedGroup, colourGroup;
     CheckBox soundEnabled;
     EditText nameText;
-    RadioButton brightButton,uglyButton,chillButton,sunriseButton,albinoButton;
+    Skin[] skins;
+    Context ctx;
+    int lastCheckedId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
-
+        ctx=this;
         optionPrefs=getApplication().getSharedPreferences("options", MODE_PRIVATE);
         optionEdit=optionPrefs.edit();
+        highscorePrefs=getApplication().getSharedPreferences("highscores", Activity.MODE_PRIVATE);
 
         speedGroup= (RadioGroup)findViewById(R.id.speedGroup);
 
@@ -156,19 +162,31 @@ public class OptionsActivity extends AppCompatActivity {
         }
 
         colourGroup = (RadioGroup)findViewById(R.id.colourGroup);
-        brightButton=(RadioButton)findViewById(R.id.brightButton);
-        uglyButton=(RadioButton)findViewById(R.id.uglyButton);
-        chillButton=(RadioButton)findViewById(R.id.chillButton);
-        sunriseButton=(RadioButton)findViewById(R.id.sunriseButton);
-        albinoButton=(RadioButton)findViewById(R.id.albinoButton);
-        colourGroup.check(colourId);
+        skins=new Skin[9];
+        skins[0]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.originalButton),"s",-1);
+        skins[1]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.blueButton),"s",-1);
+        skins[2]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.redButton),"s",-1);
+        skins[3]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.brightButton),"s",20);
+        skins[4]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.uglyButton),"n",20);
+        skins[5]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.chillButton),"f",20);
+        skins[6]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.sunriseButton),"x",20);
+        skins[7]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.albinoButton),"d",20);
+        skins[8]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.classicButton),"r",20);
 
         colourGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int saveColour;
-                int saveComplementary;
+                Skin skin=getSkin(checkedId);
+                if(skin!=null && skin.isLocked()){
+                    Skin lastSkin=getSkin(lastCheckedId);
+                    if(lastSkin==null || lastSkin.isLocked())group.check(skins[0].button.getId());
+                    else group.check(lastCheckedId);
+
+                    Toast.makeText(ctx,skin.lockMessage(),Toast.LENGTH_LONG).show();
+                    return;
+                }
+                int saveColour,saveComplementary;
                 switch (checkedId) {
 
                     //create normal theme with the darker green all the way through as DEFAULT and only one unlocked upon download
@@ -244,6 +262,7 @@ public class OptionsActivity extends AppCompatActivity {
                 optionEdit.putInt("colour", saveColour);
                 optionEdit.putInt("complementary", saveComplementary);
                 optionEdit.commit();
+                lastCheckedId=checkedId;
             }
         });
             //easy achieved schemes are coloured FFF30A
@@ -291,13 +310,18 @@ public class OptionsActivity extends AppCompatActivity {
             findViewById(R.id.resumeButton).setVisibility(View.INVISIBLE);
         }
 
-        SharedPreferences highscorePrefs=getApplication().getSharedPreferences("highscores", Activity.MODE_PRIVATE);
+        highscorePrefs=getApplication().getSharedPreferences("highscores", Activity.MODE_PRIVATE);
 
-        brightButton.setEnabled(highscorePrefs.getInt("highs",-1)>=20);
-        uglyButton.setEnabled(highscorePrefs.getInt("highn",-1)>=20);
-        chillButton.setEnabled(highscorePrefs.getInt("highf",-1)>=20);
-        sunriseButton.setEnabled(highscorePrefs.getInt("highd",-1)>=20);
-        albinoButton.setEnabled(highscorePrefs.getInt("highx",-1)>=20);
-        //brightButton.setEnabled(highscorePrefs.getInt("highr",-1)>=20);
+        for(int i=0;i<skins.length;i++){
+            skins[i].highscorePrefs=highscorePrefs;
+            //skins[i].disableLocked();
+        }
+    }
+
+    Skin getSkin(int id){
+        for(int i=0;i<skins.length;i++){
+            if(id==skins[i].button.getId())return skins[i];
+        }
+        return null;
     }
 }
