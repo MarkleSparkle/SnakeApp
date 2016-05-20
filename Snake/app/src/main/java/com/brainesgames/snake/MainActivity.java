@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
             "Hey, Louis.",
             "No True Scotsman would play this game.",
             "There's a squid in my soup!",
-            "Vogel the Monkey!"
+            "Vogel the Monkey!",
+            "Slim, Slimy, Slippery Snakes Slither Slowly"
     };
     String[] colours ={
             "#FFE95C",

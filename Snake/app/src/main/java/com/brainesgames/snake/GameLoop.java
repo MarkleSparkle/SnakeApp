@@ -91,7 +91,7 @@ public class GameLoop implements Runnable{
         }
 
         sc = new SnakeCanvas(board);
-        highscore = highscorePrefs.getInt("high" + modeStr(speed), 1);
+        highscore = highscorePrefs.getInt("high" + speedStr(speed), 1);
         drawBoard = new DrawBoard(activity.surfaceHolder, sc.canvas,optionPrefs.getInt("colour",0xff00ff00),optionPrefs.getInt("complementary", 0xffff00ff));
         mediaPlayer = null;
 
@@ -166,7 +166,7 @@ public class GameLoop implements Runnable{
                     drawBoard.setLine2(DrawBoard.OVER_LINE2);
                     drawGame();
                     setState(GAME_OVER);
-                    leaderboard.addScore(score,optionPrefs.getString("name","noname"),modeStr(speed));
+                    leaderboard.addScore(score,optionPrefs.getString("name","noname"),speedStr(speed));
                     pauseLoop();
                 } else {
                     drawGame();
@@ -215,7 +215,7 @@ public class GameLoop implements Runnable{
         drawBoard.draw();
     }
 
-    static String modeStr(int speed){
+    static String speedStr(int speed){
         switch (speed){
             case SPEED_SLOW:
                 return "s";
@@ -251,7 +251,7 @@ public class GameLoop implements Runnable{
 
     //finds speed from optionPrefs
     int getSpeed(){
-        //find mode from optionPrefs
+        //find speed from optionPrefs
         String speedString;
         speedString= optionPrefs.getString("speed", "n");
         switch(speedString.charAt(0)){
@@ -284,7 +284,7 @@ public class GameLoop implements Runnable{
 
     //updates and returns the new highscore
     void updateHigh(){
-        highscoreEdit.putInt("high" + modeStr(speed), highscore);
+        highscoreEdit.putInt("high" + speedStr(speed), highscore);
         highscoreEdit.commit();
     }
     //set the gameState for both this and activity
