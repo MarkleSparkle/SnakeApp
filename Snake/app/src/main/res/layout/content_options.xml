@@ -112,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="Colour"
+                    android:text="Colour Schemes"
                     android:textColor="#00aa00"
                     android:textSize="@dimen/text_size"
                     android:textStyle="bold"
@@ -148,6 +148,42 @@
                         android:layout_height="wrap_content"
                         android:checked="false"
                         android:text="Red"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/mustardButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Mustard"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/orangeRedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Orange-Red"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/tealButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Teal Deal"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/hotPinkButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Hot Pink"
                         android:textColor="#00aa00"
                         android:textSize="@dimen/radio_text_size" />
 
@@ -198,6 +234,42 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Albino"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/blehButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Bleh"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/royaltyButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Royalty"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/nightSkyButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Night Sky"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/greenerGrassButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Greener Grass"
                         android:textColor="#00aa00"
                         android:textSize="@dimen/radio_text_size" />
                 </RadioGroup>

@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             "How much wood would a woodchuck chuck?",
             "Perforated.",
             "Han shot first.",
+            "The grass is greener HERE",
             "Join the HeckDivers!",
             "I follow the teachings of Marx in my facial hair.",
             "CLICK HERE FOR A FREE TROJAN HORSE",
