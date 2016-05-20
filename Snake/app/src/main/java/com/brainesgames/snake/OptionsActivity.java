@@ -100,6 +100,39 @@ public class OptionsActivity extends AppCompatActivity {
             case 0xff00aa00:
                 colourId=R.id.originalButton;
                 break;
+            case 0xff0000dd:
+                colourId=R.id.blueButton;
+                break;
+            case 0xffdd0000:
+                colourId=R.id.redButton;
+                break;
+            case 0xffC0B500:
+                colourId=R.id.mustardButton;
+                break;
+            case 0xffC64C00:
+                colourId=R.id.orangeRedButton;
+                break;
+            case 0xff1DAE75:
+                colourId=R.id.tealButton;
+                break;
+            case 0xffFF89E8:
+                colourId=R.id.hotPinkButton;
+                break;
+            case 0xffFCD66F:
+                colourId=R.id.blehButton;
+                break;
+            case 0xffF9E800:
+                colourId=R.id.royaltyButton;
+                break;
+            case 0xff153E36:
+                colourId=R.id.nightSkyButton;
+                break;
+            case 0xff26B51D:
+                colourId=R.id.greenerGrassButton;
+                break;
+            case 0xff33BCEE:
+                colourId=R.id.babyBelugaButton;
+                break;
             case 0xff00ff00:
                 colourId=R.id.classicButton;
                 break;
@@ -176,6 +209,10 @@ public class OptionsActivity extends AppCompatActivity {
                         saveComplementary = 0xff227830;
                         saveColour = 0xff26B51D;
                         break;
+                    case R.id.babyBelugaButton://Baby Beluga Theme
+                        saveComplementary = 0xffFF55FF;
+                        saveColour = 0xff33BCEE;
+                        break;
                     case R.id.classicButton://Classic Theme
                         saveColour = 0xff00ff00;//green
                         saveComplementary = 0xffff00ff;//magenta
@@ -209,7 +246,10 @@ public class OptionsActivity extends AppCompatActivity {
                 optionEdit.commit();
             }
         });
-
+            //easy achieved schemes are coloured FFF30A
+            //medium  --  0A91FF
+            //hard    --  FF780A
+            //super   --  F30AFF
 
         soundEnabled=(CheckBox)findViewById(R.id.soundBox);
         soundEnabled.setChecked(optionPrefs.getBoolean("soundEnabled", true));
