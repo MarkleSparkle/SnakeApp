@@ -12,8 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.brainesgames.snake.OptionsActivity">
 
-
-    <TextView
+        <TextView
         android:id="@+id/optionsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,218 +24,229 @@
         android:textStyle="bold"
         android:typeface="serif" />
 
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/optionsTitle"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:weightSum="1">
-
-        <TextView
-            android:id="@+id/speedLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/optionsTitle"
-            android:paddingLeft="10dp"
-            android:text="Speed (Scroll)"
-            android:textColor="#00aa00"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:fadeScrollbars="false">
-            <RadioGroup
-                android:id="@+id/speedGroup"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false"
+            android:layout_below="@+id/optionsTitle"
+            android:layout_above="@+id/resumeButton"
+            android:layout_margin="15dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="20dp">
+                android:orientation="vertical"
+                android:weightSum="1">
 
-                <RadioButton
-                    android:id="@+id/slowButton"
+                <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Slow"
+                    android:paddingLeft="10dp"
+                    android:text="Speed"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <RadioGroup
+                    android:id="@+id/speedGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingLeft="20dp">
+
+                    <RadioButton
+                        android:id="@+id/slowButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Slow"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/normalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Normal"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/fastButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fast"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/extremeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Extreme"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/dynamicButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dynamic (Speed increases with each apple)"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/randomButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Random (Speed changes randomly with each apple)"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="Colour"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <RadioGroup
+                    android:id="@+id/colourGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp">
+
+                    <RadioButton
+                        android:id="@+id/originalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Original"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/blueButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Blue"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/redButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Red"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/classicButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Classic"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/brightButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bright"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/uglyButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ugly Duckling"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size"
+                        android:singleLine="false" />
+
+                    <RadioButton
+                        android:id="@+id/chillButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chill"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/sunriseButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sunrise"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+
+                    <RadioButton
+                        android:id="@+id/albinoButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Albino"
+                        android:textColor="#00aa00"
+                        android:textSize="@dimen/radio_text_size" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/soundLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="Sound"
+                    android:textColor="#00aa00"
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+
+                <CheckBox
+                    android:id="@+id/soundBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Enable Sound"
                     android:textColor="#00aa00"
                     android:textSize="@dimen/radio_text_size" />
 
-                <RadioButton
-                    android:id="@+id/normalButton"
+                <TextView
+                    android:id="@+id/nameLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Normal"
+                    android:paddingLeft="10dp"
+                    android:text="Name"
                     android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
+                    android:textSize="@dimen/text_size"
+                    android:textStyle="bold"
+                    android:typeface="serif" />
 
-                <RadioButton
-                    android:id="@+id/fastButton"
+                <EditText
+                    android:id="@+id/nameText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fast"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/extremeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Extreme"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/dynamicButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dynamic (Speed increases with each apple)"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/randomButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Random (Speed changes randomly with each apple)"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-            </RadioGroup>
-        </ScrollView>
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Colour (Scroll)"
-            android:textColor="#00aa00"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:fadeScrollbars="false">
-
-            <RadioGroup
-                android:id="@+id/colourGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp">
-
-                <RadioButton
-                    android:id="@+id/originalButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="Original"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/classicButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="Classic"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/brightButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bright"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/uglyButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ugly Duckling"
+                    android:ems="15"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="20dp"
+                    android:text="Name"
                     android:textColor="#00aa00"
                     android:textSize="@dimen/radio_text_size"
-                    android:singleLine="false" />
-
-                <RadioButton
-                    android:id="@+id/chillButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chill"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/sunriseButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sunrise"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-
-                <RadioButton
-                    android:id="@+id/albinoButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Albino"
-                    android:textColor="#00aa00"
-                    android:textSize="@dimen/radio_text_size" />
-            </RadioGroup>
+                    android:textStyle="bold"
+                    android:typeface="serif" />
+            </LinearLayout>
         </ScrollView>
-
-        <TextView
-            android:id="@+id/soundLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Sound"
-            android:textColor="#00aa00"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <CheckBox
-            android:id="@+id/soundBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Enable Sound"
-            android:textColor="#00aa00"
-            android:textSize="@dimen/radio_text_size" />
-
-        <TextView
-            android:id="@+id/nameLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Name"
-            android:textColor="#00aa00"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-        <EditText
-            android:id="@+id/nameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="15"
-            android:inputType="textPersonName"
-            android:paddingLeft="20dp"
-            android:text="Name"
-            android:textColor="#00aa00"
-            android:textSize="@dimen/radio_text_size"
-            android:textStyle="bold"
-            android:typeface="serif" />
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/startButton"

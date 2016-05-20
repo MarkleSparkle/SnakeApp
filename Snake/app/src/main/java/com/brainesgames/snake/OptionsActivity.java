@@ -132,10 +132,15 @@ public class OptionsActivity extends AppCompatActivity {
                 int saveComplementary = 0;
                 switch (checkedId) {
 
-
                     //create normal theme with the darker green all the way through as DEFAULT and only one unlocked upon download
                     case R.id.originalButton://original Theme
                         saveComplementary = saveColour = 0xff00aa00;//dark green
+                        break;
+                    case R.id.blueButton:
+                        saveComplementary = saveColour = 0xff0000dd;//light blue
+                        break;
+                    case R.id.redButton:
+                        saveComplementary = saveColour = 0xffdd0000;//light red
                         break;
                     case R.id.classicButton://Classic Theme
                         saveColour = 0xff00ff00;//green
