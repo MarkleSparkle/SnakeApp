@@ -184,6 +184,37 @@ public class OptionsActivity extends AppCompatActivity {
         skins[16]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.nightSkyButton),"n",20);
         skins[17]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.royaltyButton),"f",20);
 
+        RadioButton [] button = {//creating radio button array to easily manipulate locked and unlocked background colours
+                (RadioButton) findViewById(R.id.originalButton),
+                (RadioButton) findViewById(R.id.blueButton),
+                (RadioButton) findViewById(R.id.redButton),
+                (RadioButton) findViewById(R.id.brightButton),
+                (RadioButton) findViewById(R.id.uglyButton),
+                (RadioButton) findViewById(R.id.chillButton),
+                (RadioButton) findViewById(R.id.sunriseButton),
+                (RadioButton) findViewById(R.id.albinoButton),
+                (RadioButton) findViewById(R.id.classicButton),
+                (RadioButton) findViewById(R.id.mustardButton),
+                (RadioButton) findViewById(R.id.orangeRedButton),
+                (RadioButton) findViewById(R.id.tealButton),
+                (RadioButton) findViewById(R.id.hotPinkButton),
+                (RadioButton) findViewById(R.id.blehButton),
+                (RadioButton) findViewById(R.id.greenerGrassButton),
+                (RadioButton) findViewById(R.id.babyBelugaButton),
+                (RadioButton) findViewById(R.id.nightSkyButton),
+                (RadioButton) findViewById(R.id.royaltyButton)
+        };
+
+        for(int i=0; i<button.length; i++) {//sets background colour to #7A0000 (dark red) if the button is locked
+            if (skins[i].isLocked()) {
+                button[i].setBackgroundColor(0xff7A0000);//we might need to change this colour cause es Ugli!
+            }
+        }
+        for(int i=0; i<button.length; i++) {//sets background colour to transparent if the button is unlocked
+            if (skins[i].isEnabled()) {
+                button[i].setBackgroundColor(80000000);
+            }
+        }
         colourGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -312,7 +343,7 @@ public class OptionsActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        Log.d("OptionsActivity","OnResume");
+        Log.d("OptionsActivity", "OnResume");
         save=getApplication().getSharedPreferences("save", Activity.MODE_PRIVATE);
         if(save.getBoolean("gameSaved",false)){
             findViewById(R.id.resumeButton).setVisibility(View.VISIBLE);

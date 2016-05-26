@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
             "（ノT＿T)ノ ＾┻━┻",
             "｡：ﾟ(｡ﾉω＼｡)ﾟ･｡",
             "♪(┌・。・)┌",
+            "Check yourself before you shrek yourself",
             "The power within me!",
             "DID he die of hot dog poisoning?",
             "Greedo shot first.",
@@ -73,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
             "#D875FF",
             "#00AA00",
             "#FFAB24",
-            "#8100EB"
+            "#8100EB",
+            "#42F5F5"
     };
 
     @Override

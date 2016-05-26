@@ -24,6 +24,10 @@ public class Skin {
         button.setEnabled(highscorePrefs.getInt("high"+speedStr,-1)>=minimum);
     }
 
+    boolean isEnabled(){//opposite of isLocked()
+        return highscorePrefs.getInt("high"+speedStr,-1)>=minimum;
+    }
+
     boolean isLocked(){
         return highscorePrefs.getInt("high"+speedStr,-1)<minimum;
     }
