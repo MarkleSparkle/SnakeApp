@@ -164,27 +164,8 @@ public class OptionsActivity extends AppCompatActivity {
         colourGroup = (RadioGroup)findViewById(R.id.colourGroup);
         colourGroup.check(colourId);
         lastCheckedId=colourId;
-        skins=new Skin[18];
-        skins[0]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.originalButton),"s",-1);
-        skins[1]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.blueButton),"s",-1);
-        skins[2]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.redButton),"s",-1);
-        skins[3]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.brightButton),"s",40);
-        skins[4]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.uglyButton),"n",40);
-        skins[5]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.chillButton),"f",40);
-        skins[6]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.sunriseButton),"x",40);
-        skins[7]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.albinoButton),"d",40);
-        skins[8]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.classicButton),"r",40);
-        skins[9]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.mustardButton),"s",1);
-        skins[10]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.orangeRedButton),"n",1);
-        skins[11]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.tealButton),"f",1);
-        skins[12]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.hotPinkButton),"x",1);
-        skins[13]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.blehButton),"d",1);
-        skins[14]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.greenerGrassButton),"r",1);
-        skins[15]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.babyBelugaButton),"s",20);
-        skins[16]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.nightSkyButton),"n",20);
-        skins[17]=new Skin(highscorePrefs,(RadioButton)findViewById(R.id.royaltyButton),"f",20);
-
-        RadioButton [] button = {//creating radio button array to easily manipulate locked and unlocked background colours
+        
+                RadioButton [] button = {//creating radio button array to easily manipulate locked and unlocked background colours
                 (RadioButton) findViewById(R.id.originalButton),
                 (RadioButton) findViewById(R.id.blueButton),
                 (RadioButton) findViewById(R.id.redButton),
@@ -204,6 +185,26 @@ public class OptionsActivity extends AppCompatActivity {
                 (RadioButton) findViewById(R.id.nightSkyButton),
                 (RadioButton) findViewById(R.id.royaltyButton)
         };
+        
+        skins=new Skin[18];
+        skins[0]=new Skin(highscorePrefs,buttons[0],"s",-1);
+        skins[1]=new Skin(highscorePrefs,buttons[1],"s",-1);
+        skins[2]=new Skin(highscorePrefs,buttons[2],"s",-1);
+        skins[3]=new Skin(highscorePrefs,buttons[3],"s",40);
+        skins[4]=new Skin(highscorePrefs,buttons[4],"n",40);
+        skins[5]=new Skin(highscorePrefs,buttons[5],"f",40);
+        skins[6]=new Skin(highscorePrefs,buttons[6],"x",40);
+        skins[7]=new Skin(highscorePrefs,buttons[7],"d",40);
+        skins[8]=new Skin(highscorePrefs,buttons[8],"r",40);
+        skins[9]=new Skin(highscorePrefs,buttons[9],"s",1);
+        skins[10]=new Skin(highscorePrefs,buttons[10],"n",1);
+        skins[11]=new Skin(highscorePrefs,buttons[11],"f",1);
+        skins[12]=new Skin(highscorePrefs,buttons[12],"x",1);
+        skins[13]=new Skin(highscorePrefs,buttons[13],"d",1);
+        skins[14]=new Skin(highscorePrefs,buttons[14],"r",1);
+        skins[15]=new Skin(highscorePrefs,buttons[15],"s",20);
+        skins[16]=new Skin(highscorePrefs,buttons[16],"n",20);
+        skins[17]=new Skin(highscorePrefs,buttons[17],"f",20);
 
         for(int i=0; i<button.length; i++) {//sets background colour to #7A0000 (dark red) if the button is locked
             if (skins[i].isLocked()) {
