@@ -18,6 +18,7 @@ TO FIX LIST:
 	1. To many characters breaks the table.
 		a) limit the character able to be put in the box
 		b) cut the amount of characters if the string is too long
+        2. Flip Royalty Colours
 
 }
 IDEAS LIST:
@@ -37,8 +38,4 @@ IDEAS LIST:
 		4. Mice (moving food)
 		5. Multiple apples on the screen at once
 	}
-	4. Change Colours to Colour Schemes (multiple colours per scheme as opposed to one colour all the way through)
-		1. Colour Schemes would have unique names such as "Royal" or "Popsicle".
-		2. Text one colour, game another
-	
 }
