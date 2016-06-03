@@ -23,6 +23,7 @@ public class OptionsActivity extends AppCompatActivity {
     CheckBox soundEnabled;
     EditText nameText;
     Skin[] skins;
+    RadioButton [] buttons;
     Context ctx;
     int lastCheckedId;
 
@@ -165,26 +166,26 @@ public class OptionsActivity extends AppCompatActivity {
         colourGroup.check(colourId);
         lastCheckedId=colourId;
         
-                RadioButton [] button = {//creating radio button array to easily manipulate locked and unlocked background colours
-                (RadioButton) findViewById(R.id.originalButton),
-                (RadioButton) findViewById(R.id.blueButton),
-                (RadioButton) findViewById(R.id.redButton),
-                (RadioButton) findViewById(R.id.brightButton),
-                (RadioButton) findViewById(R.id.uglyButton),
-                (RadioButton) findViewById(R.id.chillButton),
-                (RadioButton) findViewById(R.id.sunriseButton),
-                (RadioButton) findViewById(R.id.albinoButton),
-                (RadioButton) findViewById(R.id.classicButton),
-                (RadioButton) findViewById(R.id.mustardButton),
-                (RadioButton) findViewById(R.id.orangeRedButton),
-                (RadioButton) findViewById(R.id.tealButton),
-                (RadioButton) findViewById(R.id.hotPinkButton),
-                (RadioButton) findViewById(R.id.blehButton),
-                (RadioButton) findViewById(R.id.greenerGrassButton),
-                (RadioButton) findViewById(R.id.babyBelugaButton),
-                (RadioButton) findViewById(R.id.nightSkyButton),
-                (RadioButton) findViewById(R.id.royaltyButton)
-        };
+        buttons= new RadioButton[18]; //creating radio button array to easily manipulate locked and unlocked background colours
+        buttons[0]=(RadioButton) findViewById(R.id.originalButton);
+        buttons[1]=(RadioButton) findViewById(R.id.blueButton);
+        buttons[2]=(RadioButton) findViewById(R.id.redButton);
+        buttons[3]=(RadioButton) findViewById(R.id.brightButton);
+        buttons[4]=(RadioButton) findViewById(R.id.uglyButton);
+        buttons[5]=(RadioButton) findViewById(R.id.chillButton);
+        buttons[6]=(RadioButton) findViewById(R.id.sunriseButton);
+        buttons[7]=(RadioButton) findViewById(R.id.albinoButton);
+        buttons[8]=(RadioButton) findViewById(R.id.classicButton);
+        buttons[9]=(RadioButton) findViewById(R.id.mustardButton);
+        buttons[10]= (RadioButton) findViewById(R.id.orangeRedButton);
+        buttons[11]=(RadioButton) findViewById(R.id.tealButton);
+        buttons[12]=(RadioButton) findViewById(R.id.hotPinkButton);
+        buttons[13]=(RadioButton) findViewById(R.id.blehButton);
+        buttons[14]=(RadioButton) findViewById(R.id.greenerGrassButton);
+        buttons[15]=(RadioButton) findViewById(R.id.babyBelugaButton);
+        buttons[16]=(RadioButton) findViewById(R.id.nightSkyButton);
+        buttons[17]= (RadioButton) findViewById(R.id.royaltyButton);
+
         
         skins=new Skin[18];
         skins[0]=new Skin(highscorePrefs,buttons[0],"s",-1);
@@ -206,16 +207,6 @@ public class OptionsActivity extends AppCompatActivity {
         skins[16]=new Skin(highscorePrefs,buttons[16],"n",20);
         skins[17]=new Skin(highscorePrefs,buttons[17],"f",20);
 
-        for(int i=0; i<button.length; i++) {//sets background colour to #7A0000 (dark red) if the button is locked
-            if (skins[i].isLocked()) {
-                button[i].setBackgroundColor(0xff7A0000);//we might need to change this colour cause es Ugli!
-            }
-        }
-        for(int i=0; i<button.length; i++) {//sets background colour to transparent if the button is unlocked
-            if (skins[i].isEnabled()) {
-                button[i].setBackgroundColor(80000000);
-            }
-        }
         colourGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -358,6 +349,11 @@ public class OptionsActivity extends AppCompatActivity {
         for(int i=0;i<skins.length;i++){
             skins[i].highscorePrefs=highscorePrefs;
             //skins[i].disableLocked();
+        }
+
+        for(int i=0; i<buttons.length; i++) {//sets background colour to #7A0000 (dark red) if the button is locked, clear if unlocked
+            if (skins[i].isLocked())buttons[i].setBackgroundColor(0xff7A0000);//we might need to change this colour cause es Ugli!
+            else buttons[i].setBackgroundColor(80000000);
         }
     }
 
